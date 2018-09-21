@@ -15,7 +15,7 @@ namespace CommonServerLib
         public Int32 PacketID;
         public Int16 Value1;        
         public Int16 Value2;
-        public byte[] Datas;
+        public byte[] BodyData;
         
         public void Assign(string sessionID, EFBinaryRequestInfo reqInfo)
         {
@@ -27,7 +27,7 @@ namespace CommonServerLib
             
             if (reqInfo.Body.Length > 0)
             {
-                Datas = reqInfo.Body;
+                BodyData = reqInfo.Body;
             }
         }
 
@@ -38,7 +38,7 @@ namespace CommonServerLib
             PacketID = (short)DBResult.PacketID;
             Value1 = DBResult.LobbyID;
             Value2 = 0;
-            Datas = DBResult.Datas;
+            BodyData = DBResult.Datas;
         }
 
         public static ServerPacketData MakeNTFInConnectOrDisConnectClientPacket(bool isConnect, string sessionID)
@@ -56,9 +56,7 @@ namespace CommonServerLib
 
             packet.SessionID = sessionID;
             packet.Value1 = 0;
-            packet.Value2 = 0;
-            packet.JsonFormatData = sessionID;
-
+            packet.Value2 = 0;            
             return packet;
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MessagePack; //https://github.com/neuecc/MessagePack-CSharp
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace CSBaseLib
 {
-
     public class PacketToBytes
     {
         public static byte[] Make(PACKETID packetID, Int16 lobbyID, byte[] bodyData)
@@ -41,9 +41,12 @@ namespace CSBaseLib
     }
 
     // 로그인 요청
+    [MessagePackObject]
     public class PKTReqLogin
     {
+        [Key(0)]
         public string UserID;
+        [Key(1)]
         public string AuthToken;
     }
 

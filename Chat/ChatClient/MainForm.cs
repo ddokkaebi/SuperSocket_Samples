@@ -1,4 +1,4 @@
-﻿using MsgPack.Serialization;
+﻿using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -107,8 +107,8 @@ namespace ChatClient
 
             var reqLogin = new CSBaseLib.PKTReqLogin() { UserID = userID, AuthToken = authToken };
 
-            var serializer = MessagePackSerializer.Create<CSBaseLib.PKTReqLogin>();
-            var Body = serializer.PackSingleObject(reqLogin);
+            //var serializer = MessagePackSerializer.Create<CSBaseLib.PKTReqLogin>();
+            var Body = MessagePackSerializer.Serialize(reqLogin);
             var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGIN, 0, Body);
 
             await Task.Run(() => socket.s_write(sendData));
@@ -179,8 +179,7 @@ namespace ChatClient
             {
                 case (int)CSBaseLib.PACKETID.RES_LOGIN:
                     {
-                        var deSerializer = MessagePackSerializer.Create<CSBaseLib.PKTResLogin>();
-                        var resData = deSerializer.UnpackSingleObject(packetBodyData);
+                        var resData = MessagePackSerializer.Deserialize<CSBaseLib.PKTResLogin>(packetBodyData);
 
                         if (resData.Result == (short)CSBaseLib.ERROR_CODE.NONE)
                         {
@@ -197,8 +196,7 @@ namespace ChatClient
 
                 case (int)CSBaseLib.PACKETID.RES_LOGOUT:
                     {
-                        var deSerializer = MessagePackSerializer.Create<CSBaseLib.PKTResLogin>();
-                        var resData = deSerializer.UnpackSingleObject(packetBodyData);
+                        var resData = MessagePackSerializer.Deserialize<CSBaseLib.PKTResLogin>(packetBodyData);
 
                         if (resData.Result == (short)CSBaseLib.ERROR_CODE.NONE)
                         {

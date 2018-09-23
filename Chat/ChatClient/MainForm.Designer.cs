@@ -53,6 +53,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.listBoxLog = new System.Windows.Forms.ListBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -240,6 +241,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.textBoxSendChat);
             this.groupBox2.Controls.Add(this.listBoxChat);
@@ -251,7 +253,7 @@
             this.groupBox2.Size = new System.Drawing.Size(572, 438);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "로비";
+            this.groupBox2.Text = "방";
             // 
             // button5
             // 
@@ -281,21 +283,21 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(6, 405);
+            this.button4.Location = new System.Drawing.Point(68, 376);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 23);
+            this.button4.Size = new System.Drawing.Size(73, 23);
             this.button4.TabIndex = 29;
-            this.button4.Text = "로비 입장";
+            this.button4.Text = "방 입장";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 376);
+            this.button1.Location = new System.Drawing.Point(6, 403);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(135, 23);
             this.button1.TabIndex = 28;
-            this.button1.Text = "로비 나가기";
+            this.button1.Text = "방 나가기";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -307,6 +309,13 @@
             this.listBoxLog.Name = "listBoxLog";
             this.listBoxLog.Size = new System.Drawing.Size(574, 184);
             this.listBoxLog.TabIndex = 31;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 377);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(61, 21);
+            this.textBox1.TabIndex = 33;
             // 
             // MainForm
             // 
@@ -357,6 +366,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonLogInOut;
         private System.Windows.Forms.ListBox listBoxLog;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

@@ -45,10 +45,20 @@ namespace CSBaseLib
         REQ_LOGIN       = 1002,
         RES_LOGIN       = 1003,
 
-        REQ_LOGOUT      = 1011,
-        RES_LOGOUT      = 1012,
+        REQ_ROOM_ENTER = 1015,
+        RES_ROOM_ENTER = 1016,
+        NTF_ROOM_USER_LIST = 1017,
+        NTF_ROOM_NEW_USER = 1018,
 
-        CS_END          = 7777,
+        REQ_ROOM_LEAVE = 1021,
+        RES_ROOM_LEAVE = 1022,
+        NTF_ROOM_LEAVE_USER = 1023,
+
+        REQ_ROOM_CHAT = 1026,
+        RES_ROOM_CHAT = 1027,
+        NTF_ROOM_CHAT = 1028,
+
+        CS_END          = 1100,
 
 
         // 서버 - 서버

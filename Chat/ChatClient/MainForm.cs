@@ -72,19 +72,19 @@ namespace ChatClient
             }
         }
 
-        // 로비 나가기
+        // 방 나가기
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
 
-        // 로비 입장
+        // 방 입장
         private void button4_Click(object sender, EventArgs e)
         {
 
         }
 
-        // 채팅 보내기
+        // 방 채팅 보내기
         private void button5_Click(object sender, EventArgs e)
         {
 

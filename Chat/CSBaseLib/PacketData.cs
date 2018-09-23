@@ -55,9 +55,70 @@ namespace CSBaseLib
         public short Result;
     }
 
-    // 로그아웃 요청
-    public class PKTResLogout
+
+    [MessagePackObject]
+    public class PKTReqRoomEnter
+    {
+        [Key(0)]
+        public int RoomId;
+    }
+
+    public class PKTResRoomEnter
     {
         public short Result;
+    }
+
+    [MessagePackObject]
+    public class PKTNtfRoomUserList
+    {
+        [Key(0)]
+        public List<string> UserNickNames;
+    }
+
+    [MessagePackObject]
+    public class PKTNtfRoomNewUser
+    {
+        [Key(0)]
+        public string UserNickName;
+    }
+
+
+    public class PKTReqRoomLeave
+    {
+    }
+
+    public class PKTResRoomLeave
+    {
+        public short Result;
+    }
+
+    [MessagePackObject]
+    public class PKTNtfRoomLeaveUser
+    {
+        [Key(0)]
+        public string UserNickName;
+    }
+
+
+    [MessagePackObject]
+    public class PKTReqRoomChat
+    {
+        [Key(0)]
+        public string ChatMessage;
+    }
+
+    public class PKTResRoomChat
+    {
+        public short Result;
+    }
+
+    [MessagePackObject]
+    public class PKTNtfRoomChat
+    {
+        [Key(0)]
+        public string UserNickName;
+
+        [Key(1)]
+        public string ChatMessage;
     }
 }

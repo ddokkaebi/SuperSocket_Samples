@@ -80,9 +80,7 @@ namespace ChatServer
             PacketHandlerMap.Add((int)PACKETID.REQ_LOGIN, CommonPacketHandler.RequestLogin);
             PacketHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, CommonPacketHandler.ResponseLoginFromDB);
            
-            PacketHandlerMap.Add((int)PACKETID.REQ_LOGOUT, CommonPacketHandler.RequestLogout);
-
-            
+                        
             // 개발
             PacketHandlerMap.Add((int)PACKETID.REQ_TEST_ECHO, CommonPacketHandler.RequestTestEcho);
             //

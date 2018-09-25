@@ -37,7 +37,6 @@ namespace ChatClient
             if (socket.conn(address, port))
             {
                 labelConnState.Text = string.Format("{0}. 서버에 접속 중", DateTime.Now);
-                buttonLogInOut.Text = "Login";
                 ClientState = CLIENT_STATE.CONNECTED;
             }
             else
@@ -49,22 +48,16 @@ namespace ChatClient
         // 서버 접속 끊기
         private void button3_Click(object sender, EventArgs e)
         {
-            buttonLogInOut.Text = "Login";
             ClientState = CLIENT_STATE.NONE;
-
             socket.close();
         }
 
         // 로그 인/아웃
-        private void buttonLogInOut_Click(object sender, EventArgs e)
+        private void buttonLogIn_Click(object sender, EventArgs e)
         {
             if (ClientState == CLIENT_STATE.CONNECTED)
             {
                 RequestLogin(textBoxID.Text, textBoxAuthToken.Text);
-            }
-            else if (ClientState == CLIENT_STATE.LOGIN)
-            {
-                RequestLogout();
             }
             else
             {
@@ -107,7 +100,6 @@ namespace ChatClient
 
             var reqLogin = new CSBaseLib.PKTReqLogin() { UserID = userID, AuthToken = authToken };
 
-            //var serializer = MessagePackSerializer.Create<CSBaseLib.PKTReqLogin>();
             var Body = MessagePackSerializer.Serialize(reqLogin);
             var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGIN, 0, Body);
 
@@ -124,26 +116,7 @@ namespace ChatClient
             }
         }
 
-        async void RequestLogout()
-        {
-            PrintLog("서버에 로그아웃 요청");
-
-
-            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGOUT, 0, null);
-
-            await Task.Run(() => socket.s_write(sendData));
-
-
-            Tuple<int, byte[]> recvData = null;
-            await Task.Run(() => recvData = socket.s_read());
-
-            if (recvData != null)
-            {
-                var packetData = CSBaseLib.PacketToBytes.ClientReceiveData(recvData.Item1, recvData.Item2);
-                PacketProcess(packetData.Item1, packetData.Item2);
-            }
-        }
-
+        
         //async void RequestLobbyList()
         //{
             //listViewLobbyList.Items.Clear();
@@ -185,28 +158,11 @@ namespace ChatClient
                         {
                             ClientState = CLIENT_STATE.LOGIN;
                             PrintLog("로그인 성공");
-                            buttonLogInOut.Text = "Logout";
+                            buttonLogIn.Text = "Logout";
                         }
                         else
                         {
                             PrintLog(string.Format("로그인 실패: {0} {1}", resData.Result, resData.Result.ToString()));
-                        }
-                    }
-                    break;
-
-                case (int)CSBaseLib.PACKETID.RES_LOGOUT:
-                    {
-                        var resData = MessagePackSerializer.Deserialize<CSBaseLib.PKTResLogin>(packetBodyData);
-
-                        if (resData.Result == (short)CSBaseLib.ERROR_CODE.NONE)
-                        {
-                            ClientState = CLIENT_STATE.CONNECTED;
-                            PrintLog("로그아웃 성공");
-                            buttonLogInOut.Text = "Login";
-                        }
-                        else
-                        {
-                            PrintLog(string.Format("로그아웃 실패: {0} {1}", resData.Result, resData.Result.ToString()));
                         }
                     }
                     break;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MsgPack.Serialization;
+using MessagePack;
 
 using CSBaseLib;
 using CommonServerLib;
@@ -44,8 +44,7 @@ namespace ChatServer
 
             try
             {
-                var deSerializer = MessagePackSerializer.Create<PKTReqLogin>();
-                var reqData = deSerializer.UnpackSingleObject(packetData.BodyData);
+                var reqData = MessagePackSerializer.Deserialize< PKTReqLogin>(packetData.BodyData);
 
                 // 일단 임시로 유저 등록을 한다.
                 var error = ClientUserManager.AddUser(reqData.UserID, packetData.SessionID);
@@ -59,8 +58,7 @@ namespace ChatServer
 
                 // DB 작업 의뢰한다.
                 var dbReqLogin = new DBReqLogin() { AuthToken = reqData.AuthToken };
-                var serializer = MessagePackSerializer.Create<DBReqLogin>();
-                var jobDatas = serializer.PackSingleObject(dbReqLogin);
+                var jobDatas = MessagePackSerializer.Serialize(dbReqLogin);
                 
                 var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, packetData.SessionID, packetData.Value1, reqData.UserID, jobDatas);
                 RequestDBJob(ServerNetwork.GetPacketDistributor(), dbQueue);
@@ -80,10 +78,8 @@ namespace ChatServer
 
             try
             {
-                var deSerializer = MessagePackSerializer.Create<DBResLogin>();
-                var resData = deSerializer.UnpackSingleObject(packetData.BodyData);
-
-
+                var resData = MessagePackSerializer.Deserialize<DBResLogin>(packetData.BodyData);
+                
                 // DB 처리 성공/실패에 대한 처리를 한다.
                 var errorCode = ERROR_CODE.NONE;
 
@@ -114,42 +110,14 @@ namespace ChatServer
                 Result = (short)errorCode
             };
 
-            var serializer = MessagePackSerializer.Create<PKTResLogin>();
-            var Body = serializer.PackSingleObject(resLogin);
+            var Body = MessagePackSerializer.Serialize(resLogin);
             var sendData = PacketToBytes.Make(PACKETID.RES_LOGIN, 0, Body);
 
             ServerNetwork.SendData(sessionID, sendData);
         }
 
 
-        public void RequestLogout(ServerPacketData requestData)
-        {
-            DevLog.Write("로그아웃 요청 받음", LOG_LEVEL.DEBUG);
-
-            try
-            {
-                var resLogout = new PKTResLogout()
-                {
-                    Result = (short)ERROR_CODE.NONE
-                };
-
-                var serializer = MessagePackSerializer.Create<PKTResLogout>();
-                var Body = serializer.PackSingleObject(resLogout);
-                var sendData = PacketToBytes.Make(PACKETID.REQ_LOGOUT, 0, Body);
-
-                ServerNetwork.SendData(requestData.SessionID, sendData);
-
-                DevLog.Write("로그아웃 요청 답변 보냄", LOG_LEVEL.DEBUG);
-            }
-            catch (Exception ex)
-            {
-                // 패킷 해제에 의해서 로그가 남지 않도록 로그 수준을 Debug로 한다.
-                DevLog.Write(ex.ToString(), LOG_LEVEL.DEBUG);
-            }
-        }
-
-
-
+        
         
         // 테스트 ------------------------------------------------------------
         public void RequestTestEcho(ServerPacketData requestData)

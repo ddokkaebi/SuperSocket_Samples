@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using MsgPack.Serialization;
+using MessagePack;
 
 using CSBaseLib;
 
@@ -35,8 +35,7 @@ namespace CommonServerLib
         {
             try
             {
-                var serializer = MessagePackSerializer.Create<DBReqLogin>();
-                var reqData = serializer.UnpackSingleObject(dbQueue.Datas);
+                var reqData = MessagePackSerializer.Deserialize<DBReqLogin>(dbQueue.Datas);
 
                 // 필드 단위로 읽어 올 때는 꼭 Key가 있는지 확인 해야 한다!!!
                 var redis = RefRedis.GetRedisString(dbQueue.UserID);
@@ -76,10 +75,8 @@ namespace CommonServerLib
                 LobbyID = dbQueue.LobbyID,
             };
 
-            var serializer = MessagePackSerializer.Create<DBResLogin>();
-
             var resLoginData = new DBResLogin() { UserID = dbQueue.UserID, Result = result };
-            returnData.Datas = serializer.PackSingleObject(resLoginData);
+            returnData.Datas = MessagePackSerializer.Serialize(resLoginData);
             
             return returnData;
         }

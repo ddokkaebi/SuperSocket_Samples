@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MessagePack;
 using CSBaseLib;
 
 namespace CommonServerLib
@@ -26,14 +27,19 @@ namespace CommonServerLib
     }
 
 
+    [MessagePackObject]
     public class DBReqLogin
     {
+        [Key(0)]
         public string AuthToken;
     }
 
+    [MessagePackObject]
     public class DBResLogin
     {
+        [Key(0)]
         public string UserID;
+        [Key(1)]
         public ERROR_CODE Result;
     }
 }

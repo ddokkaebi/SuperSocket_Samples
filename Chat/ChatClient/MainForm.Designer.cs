@@ -38,7 +38,7 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buttonLogInOut = new System.Windows.Forms.Button();
+            this.buttonLogIn = new System.Windows.Forms.Button();
             this.textBoxAuthToken = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxID = new System.Windows.Forms.TextBox();
@@ -47,13 +47,13 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBoxSendChat = new System.Windows.Forms.TextBox();
             this.listBoxChat = new System.Windows.Forms.ListBox();
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.listBoxLog = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -155,7 +155,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.buttonLogInOut);
+            this.groupBox1.Controls.Add(this.buttonLogIn);
             this.groupBox1.Controls.Add(this.textBoxAuthToken);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxID);
@@ -169,15 +169,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "로그인";
             // 
-            // buttonLogInOut
+            // buttonLogIn
             // 
-            this.buttonLogInOut.Location = new System.Drawing.Point(370, 19);
-            this.buttonLogInOut.Name = "buttonLogInOut";
-            this.buttonLogInOut.Size = new System.Drawing.Size(53, 19);
-            this.buttonLogInOut.TabIndex = 30;
-            this.buttonLogInOut.Text = "로그인";
-            this.buttonLogInOut.UseVisualStyleBackColor = true;
-            this.buttonLogInOut.Click += new System.EventHandler(this.buttonLogInOut_Click);
+            this.buttonLogIn.Location = new System.Drawing.Point(370, 19);
+            this.buttonLogIn.Name = "buttonLogIn";
+            this.buttonLogIn.Size = new System.Drawing.Size(53, 19);
+            this.buttonLogIn.TabIndex = 30;
+            this.buttonLogIn.Text = "로그인";
+            this.buttonLogIn.UseVisualStyleBackColor = true;
+            this.buttonLogIn.Click += new System.EventHandler(this.buttonLogIn_Click);
             // 
             // textBoxAuthToken
             // 
@@ -255,6 +255,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "방";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 377);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(61, 21);
+            this.textBox1.TabIndex = 33;
+            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(501, 405);
@@ -310,13 +317,6 @@
             this.listBoxLog.Size = new System.Drawing.Size(574, 184);
             this.listBoxLog.TabIndex = 31;
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 377);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(61, 21);
-            this.textBox1.TabIndex = 33;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -364,7 +364,7 @@
         private System.Windows.Forms.ListBox listBoxChat;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button buttonLogInOut;
+        private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.ListBox listBoxLog;
         private System.Windows.Forms.TextBox textBox1;
     }

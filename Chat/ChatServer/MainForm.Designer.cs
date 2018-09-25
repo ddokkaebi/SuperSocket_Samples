@@ -30,21 +30,21 @@
         {
             this.listBoxLog = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxCurrentUserCount = new System.Windows.Forms.TextBox();
+            this.textBoxServerID = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.textBoxAddress = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBoxCurrentUserCount = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBoxMaxUserPerLobby = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxLobbyCountPerThread = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.textBoxLobbyStartIndex = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxLobbyThreadCount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxLobbyCountPerThread = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxMaxUserPerLobby = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxServerID = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -73,21 +73,21 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "서버 정보";
             // 
-            // label1
+            // textBoxServerID
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 69);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "동시 접속자 수:";
+            this.textBoxServerID.Location = new System.Drawing.Point(99, 13);
+            this.textBoxServerID.Name = "textBoxServerID";
+            this.textBoxServerID.Size = new System.Drawing.Size(60, 21);
+            this.textBoxServerID.TabIndex = 5;
             // 
-            // textBoxCurrentUserCount
+            // label7
             // 
-            this.textBoxCurrentUserCount.Location = new System.Drawing.Point(99, 65);
-            this.textBoxCurrentUserCount.Name = "textBoxCurrentUserCount";
-            this.textBoxCurrentUserCount.Size = new System.Drawing.Size(60, 21);
-            this.textBoxCurrentUserCount.TabIndex = 1;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(48, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(48, 12);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "서버 ID:";
             // 
             // textBoxAddress
             // 
@@ -105,6 +105,23 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "서버 Port:";
             // 
+            // textBoxCurrentUserCount
+            // 
+            this.textBoxCurrentUserCount.Location = new System.Drawing.Point(99, 65);
+            this.textBoxCurrentUserCount.Name = "textBoxCurrentUserCount";
+            this.textBoxCurrentUserCount.Size = new System.Drawing.Size(60, 21);
+            this.textBoxCurrentUserCount.TabIndex = 1;
+            this.textBoxCurrentUserCount.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 69);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "현재 접속자 수:";
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.textBoxMaxUserPerLobby);
@@ -121,6 +138,38 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "로비 설정";
+            // 
+            // textBoxMaxUserPerLobby
+            // 
+            this.textBoxMaxUserPerLobby.Location = new System.Drawing.Point(167, 89);
+            this.textBoxMaxUserPerLobby.Name = "textBoxMaxUserPerLobby";
+            this.textBoxMaxUserPerLobby.Size = new System.Drawing.Size(52, 21);
+            this.textBoxMaxUserPerLobby.TabIndex = 7;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(59, 93);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(105, 12);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "로비 최대 유저 수:";
+            // 
+            // textBoxLobbyCountPerThread
+            // 
+            this.textBoxLobbyCountPerThread.Location = new System.Drawing.Point(166, 64);
+            this.textBoxLobbyCountPerThread.Name = "textBoxLobbyCountPerThread";
+            this.textBoxLobbyCountPerThread.Size = new System.Drawing.Size(53, 21);
+            this.textBoxLobbyCountPerThread.TabIndex = 5;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 69);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(157, 12);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "스레드 당 관리하는 로비 수:";
             // 
             // textBoxLobbyStartIndex
             // 
@@ -153,54 +202,6 @@
             this.label4.Size = new System.Drawing.Size(117, 12);
             this.label4.TabIndex = 0;
             this.label4.Text = "로비 처리 스레드 수:";
-            // 
-            // textBoxLobbyCountPerThread
-            // 
-            this.textBoxLobbyCountPerThread.Location = new System.Drawing.Point(166, 64);
-            this.textBoxLobbyCountPerThread.Name = "textBoxLobbyCountPerThread";
-            this.textBoxLobbyCountPerThread.Size = new System.Drawing.Size(53, 21);
-            this.textBoxLobbyCountPerThread.TabIndex = 5;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 69);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(157, 12);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "스레드 당 관리하는 로비 수:";
-            // 
-            // textBoxMaxUserPerLobby
-            // 
-            this.textBoxMaxUserPerLobby.Location = new System.Drawing.Point(167, 89);
-            this.textBoxMaxUserPerLobby.Name = "textBoxMaxUserPerLobby";
-            this.textBoxMaxUserPerLobby.Size = new System.Drawing.Size(52, 21);
-            this.textBoxMaxUserPerLobby.TabIndex = 7;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(59, 93);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 12);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "로비 최대 유저 수:";
-            // 
-            // textBoxServerID
-            // 
-            this.textBoxServerID.Location = new System.Drawing.Point(99, 13);
-            this.textBoxServerID.Name = "textBoxServerID";
-            this.textBoxServerID.Size = new System.Drawing.Size(60, 21);
-            this.textBoxServerID.TabIndex = 5;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(48, 18);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(48, 12);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "서버 ID:";
             // 
             // MainForm
             // 

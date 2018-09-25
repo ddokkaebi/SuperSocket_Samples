@@ -14,7 +14,6 @@ using CSBaseLib;
 using CommonServerLib;
 
 
-//TODO 0. SuperSocket 최신 버전으로 업데이트 하기 !!!
 //TODO 1. 2만명 접속 가능한지 테스트 하기
 //TODO 2. 주기적으로 접속한 세션이 패킷을 주고 받았는지 조사(좀비 클라이언트 검사)
 
@@ -67,13 +66,13 @@ namespace ChatServer
             
             ChatServerEnvironment.Setting();
 
-            StartRemoteConnectCheck();
+            StartRemoteConnect();
 
             var appServer = ActiveServerBootstrap.AppServers.FirstOrDefault() as MainServer;
             InnerMessageHostProgram.ServerStart(ChatServerEnvironment.ChatServerUniqueID, appServer.Config.Port);
         }
 
-        public void StartRemoteConnectCheck()
+        public void StartRemoteConnect()
         {
             RemoteCheck = new RemoteConnectCheck();
 

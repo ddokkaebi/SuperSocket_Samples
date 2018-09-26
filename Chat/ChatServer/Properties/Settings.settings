@@ -23,11 +23,8 @@
     <Setting Name="LobbyThreadCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="RedisDBInfo" Type="System.Collections.Specialized.StringCollection" Scope="User">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;127.0.0.1_6379&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
+    <Setting Name="RedisDBInfo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1:6379</Value>
     </Setting>
     <Setting Name="DBWorkerThreadCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4</Value>

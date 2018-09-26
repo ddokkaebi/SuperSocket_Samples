@@ -21,7 +21,7 @@ namespace CommonServerLib
                 RefRedis = redis;
 
                 // 미리 Redis와 연결이 되도록 여기서 더미 데이터를 요청한다.
-                RefRedis.GetRedisString("test");
+                RefRedis.GetString("test");
 
                 return new Tuple<ERROR_CODE,string>(ERROR_CODE.NONE, "");
             }
@@ -38,18 +38,16 @@ namespace CommonServerLib
                 var reqData = MessagePackSerializer.Deserialize<DBReqLogin>(dbQueue.Datas);
 
                 // 필드 단위로 읽어 올 때는 꼭 Key가 있는지 확인 해야 한다!!!
-                var redis = RefRedis.GetRedisString(dbQueue.UserID);
-
-                var value = redis.Get().Result;
-                
-                if (value.Value == null)
+                var redis = RefRedis.GetString(dbQueue.UserID);
+                var value = redis.Result;                
+                if (value.IsNullOrEmpty)
                 {
                     return RequestLoginValue(ERROR_CODE.DB_LOGIN_EMPTY_USER, dbQueue);
                 }
 
 
                 //토큰 값##로그인시간
-                var tokenString = value.Value.Split("##");
+                var tokenString = value.ToString().Split("##");
 
                 if( reqData.AuthToken != tokenString[0])
                 {

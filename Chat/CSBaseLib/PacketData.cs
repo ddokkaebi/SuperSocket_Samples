@@ -50,6 +50,7 @@ namespace CSBaseLib
         public string AuthToken;
     }
 
+    [MessagePackObject]
     public class PKTResLogin
     {
         public short Result;
@@ -63,6 +64,7 @@ namespace CSBaseLib
         public int RoomId;
     }
 
+    [MessagePackObject]
     public class PKTResRoomEnter
     {
         public short Result;
@@ -83,10 +85,12 @@ namespace CSBaseLib
     }
 
 
+    [MessagePackObject]
     public class PKTReqRoomLeave
     {
     }
 
+    [MessagePackObject]
     public class PKTResRoomLeave
     {
         public short Result;
@@ -107,6 +111,7 @@ namespace CSBaseLib
         public string ChatMessage;
     }
 
+    [MessagePackObject]
     public class PKTResRoomChat
     {
         public short Result;

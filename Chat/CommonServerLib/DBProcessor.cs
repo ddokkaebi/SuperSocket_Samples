@@ -25,9 +25,9 @@ namespace CommonServerLib
         RedisLib RedisWraper = new RedisLib();
 
 
-        public ERROR_CODE CreateAndStart(int threadCount, Action<DBResultQueue> dbWorkResultFunc, List<Tuple<string, int>> RedisAddressList)
+        public ERROR_CODE CreateAndStart(int threadCount, Action<DBResultQueue> dbWorkResultFunc, string redisAddress)
         {
-            RedisWraper.Init(RedisAddressList);
+            RedisWraper.Init(redisAddress);
 
             DBWorkResultFunc = dbWorkResultFunc;
             var error = RegistPacketHandler();

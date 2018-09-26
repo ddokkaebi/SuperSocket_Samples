@@ -110,7 +110,7 @@
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(51, 21);
             this.textBoxPort.TabIndex = 18;
-            this.textBoxPort.Text = "18732";
+            this.textBoxPort.Text = "32452";
             this.textBoxPort.WordWrap = false;
             // 
             // label10
@@ -186,7 +186,7 @@
             this.textBoxAuthToken.Name = "textBoxAuthToken";
             this.textBoxAuthToken.Size = new System.Drawing.Size(86, 21);
             this.textBoxAuthToken.TabIndex = 29;
-            this.textBoxAuthToken.Text = "32345";
+            this.textBoxAuthToken.Text = "32452";
             this.textBoxAuthToken.WordWrap = false;
             // 
             // label1

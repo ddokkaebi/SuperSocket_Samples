@@ -1,41 +1,34 @@
-﻿using CloudStructures;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using StackExchange.Redis;
 
 
 namespace CommonServerLib
 {
     public class RedisLib
     {
-        RedisGroup redisGroup = null;
+        ConnectionMultiplexer Connection;
+        IDatabase Db;
 
 
-        public void Init(List<Tuple<string, int>> addressList)
+        public void Init(string address)
         {
-            var redisSettings = new RedisSettings[addressList.Count];
+            Connection = ConnectionMultiplexer.Connect(address);
 
-            for (int i = 0; i < addressList.Count; ++i)
+            if(Connection.IsConnected)
             {
-                redisSettings[i] = new RedisSettings($"{addressList[i].Item1}:{addressList[i].Item2}", db: 0);
+                Db = Connection.GetDatabase();
             }
-
-            redisGroup = new RedisGroup(groupName: "GameServer", settings: redisSettings);
         }
 
-        public RedisList<string> GetRedisStringList(string key)
+        
+        public Task<RedisValue> GetString(string key)
         {
-            var redisObj = new RedisList<string>(redisGroup, key);
-            return redisObj;
-        }
-
-        public RedisString<string> GetRedisString(string key)
-        {
-            var redisObj = new RedisString<string>(redisGroup, key);
-            return redisObj;
+            return Db.StringGetAsync(key);
         }   
         
 

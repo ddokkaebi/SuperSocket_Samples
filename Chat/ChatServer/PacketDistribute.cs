@@ -44,7 +44,7 @@ namespace ChatServer
             }
 
 
-            var error = DBWorker.CreateAndStart(ChatServerEnvironment.DBWorkerThreadCount, DBWorkResultFunc, ChatServerEnvironment.RedisAddressList);
+            var error = DBWorker.CreateAndStart(ChatServerEnvironment.DBWorkerThreadCount, DBWorkResultFunc, ChatServerEnvironment.RedisAddress);
             if (error != ERROR_CODE.NONE)
             {
                 return error;

@@ -16,8 +16,8 @@ namespace ChatServer
         public static int LobbyThreadCount      = 0;
 
         public static int DBWorkerThreadCount = 0;
-        
-        public static List<Tuple<string, int>> RedisAddressList = new List<Tuple<string, int>>();
+
+        public static string RedisAddress;
 
 
         public static void Setting()
@@ -27,15 +27,10 @@ namespace ChatServer
             MaxUserPerLobby     = Properties.Settings.Default.MaxUserPerLobby;
             LobbyCountPerThread = Properties.Settings.Default.LobbyCountPerThread;
             LobbyThreadCount    = Properties.Settings.Default.LobbyThreadCount;
-
-
+            
             DBWorkerThreadCount = Properties.Settings.Default.DBWorkerThreadCount;
 
-            foreach(var address in Properties.Settings.Default.RedisDBInfo)
-            {
-                var token = address.Split("_");
-                RedisAddressList.Add(new Tuple<string, int>(token[0], token[1].ToInt32()));
-            }
+            RedisAddress = Properties.Settings.Default.RedisDBInfo;
         }
     }
 }

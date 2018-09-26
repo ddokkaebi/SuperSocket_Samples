@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CloudStructures, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\CloudStructures.1.2.0\lib\CloudStructures.dll</HintPath>
-    </Reference>
     <Reference Include="CommonLibrary">
       <HintPath>packages\CommonLibrary.dll</HintPath>
     </Reference>
@@ -58,8 +55,8 @@
     <Reference Include="Sigil, Version=4.7.0.0, Culture=neutral, PublicKeyToken=2d06c3494341c8ab, processorArchitecture=MSIL">
       <HintPath>packages\Sigil.4.7.0\lib\net45\Sigil.dll</HintPath>
     </Reference>
-    <Reference Include="StackExchange.Redis, Version=1.0.316.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\StackExchange.Redis.1.0.481\lib\net45\StackExchange.Redis.dll</HintPath>
+    <Reference Include="StackExchange.Redis, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c219ff1ca8c2ce46, processorArchitecture=MSIL">
+      <HintPath>packages\StackExchange.Redis.2.0.505\lib\net461\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="SuperSocket.Common, Version=1.6.6.1, Culture=neutral, PublicKeyToken=6c80000676988ebb, processorArchitecture=MSIL">
       <HintPath>packages\SuperSocket.1.6.6.1\lib\net45\SuperSocket.Common.dll</HintPath>

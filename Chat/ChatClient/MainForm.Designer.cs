@@ -47,7 +47,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxRoomNum = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
             this.textBoxSendChat = new System.Windows.Forms.TextBox();
             this.listBoxChat = new System.Windows.Forms.ListBox();
@@ -241,7 +241,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.textBoxRoomNum);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.textBoxSendChat);
             this.groupBox2.Controls.Add(this.listBoxChat);
@@ -255,12 +255,12 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "방";
             // 
-            // textBox1
+            // textBoxRoomNum
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 377);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(61, 21);
-            this.textBox1.TabIndex = 33;
+            this.textBoxRoomNum.Location = new System.Drawing.Point(6, 377);
+            this.textBoxRoomNum.Name = "textBoxRoomNum";
+            this.textBoxRoomNum.Size = new System.Drawing.Size(61, 21);
+            this.textBoxRoomNum.TabIndex = 33;
             // 
             // button5
             // 
@@ -366,7 +366,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.ListBox listBoxLog;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxRoomNum;
     }
 }
 

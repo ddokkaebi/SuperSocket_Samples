@@ -53,6 +53,7 @@ namespace CSBaseLib
     [MessagePackObject]
     public class PKTResLogin
     {
+        [Key(0)]
         public short Result;
     }
 
@@ -67,6 +68,7 @@ namespace CSBaseLib
     [MessagePackObject]
     public class PKTResRoomEnter
     {
+        [Key(0)]
         public short Result;
     }
 
@@ -114,6 +116,7 @@ namespace CSBaseLib
     [MessagePackObject]
     public class PKTResRoomChat
     {
+        [Key(0)]
         public short Result;
     }
 

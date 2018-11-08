@@ -74,7 +74,7 @@ namespace ChatClient
         // 방 입장
         private void button4_Click(object sender, EventArgs e)
         {
-
+            var roomNum = textBoxRoomNum.Text;
         }
 
         // 방 채팅 보내기

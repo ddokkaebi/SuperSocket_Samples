@@ -7,34 +7,45 @@ using System.Threading.Tasks;
 
 namespace CSBaseLib
 {
+    public class PacketDef
+    {
+        public const Int16 PACKET_HEADER_SIZE = 5;
+        public const int MAX_USER_ID_BYTE_LENGTH = 16;
+        public const int MAX_USER_PW_BYTE_LENGTH = 16;
+    }
+
     public class PacketToBytes
     {
         public static byte[] Make(PACKETID packetID, Int16 lobbyID, byte[] bodyData)
         {
+            Int16 bodyDataSize = 0;
+            if (bodyData != null)
+            {
+                bodyDataSize = (Int16)bodyData.Length;
+            }
+            var packetSize = bodyDataSize + PacketDef.PACKET_HEADER_SIZE;
+
             List<byte> dataSource = new List<byte>();
-            dataSource.AddRange(BitConverter.GetBytes((Int32)packetID));
-            dataSource.AddRange(BitConverter.GetBytes(lobbyID));
+            dataSource.AddRange(BitConverter.GetBytes((Int16)packetSize));
+            dataSource.AddRange(BitConverter.GetBytes((Int16)packetID));
             dataSource.AddRange(BitConverter.GetBytes((Int16)0));
 
             if (bodyData != null)
             {
-                dataSource.AddRange(BitConverter.GetBytes(bodyData.Length));
                 dataSource.AddRange(bodyData);
             }
-            else
-            {
-                dataSource.AddRange(BitConverter.GetBytes((Int32)0));
-            }
-
+            
             return dataSource.ToArray();
         }
 
         public static Tuple<int, byte[]> ClientReceiveData(int recvLength, byte[] recvData)
         {
-            var packetID = BitConverter.ToInt32(recvData, 0);
+            var packetSize = BitConverter.ToInt16(recvData, 0);
+            var packetID = BitConverter.ToInt16(recvData, 2);
+            var bodySize = packetSize - PacketDef.PACKET_HEADER_SIZE;
 
-            var packetBody = new byte[recvLength];
-            Buffer.BlockCopy(recvData, 12, packetBody, 0, (recvLength - 12));
+            var packetBody = new byte[bodySize];
+            Buffer.BlockCopy(recvData, PacketDef.PACKET_HEADER_SIZE, packetBody,  0, bodySize);
 
             return new Tuple<int, byte[]>(packetID, packetBody);
         }

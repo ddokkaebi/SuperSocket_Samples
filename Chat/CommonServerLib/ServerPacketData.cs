@@ -10,20 +10,21 @@ namespace CommonServerLib
 {
     public class ServerPacketData
     {
+        public Int16 PacketSize;
         public string SessionID;
-
-        public Int32 PacketID;
-        public Int16 Value1;        
-        public Int16 Value2;
+        public Int16 PacketID;        
+        public SByte Type;
         public byte[] BodyData;
+
+        public Int16 LobbyID;
         
         public void Assign(string sessionID, EFBinaryRequestInfo reqInfo)
         {
             SessionID = sessionID;
 
+            PacketSize = reqInfo.Size;
             PacketID = reqInfo.PacketID;
-            Value1 = reqInfo.Value1;
-            Value2 = reqInfo.Value2;
+            Type = reqInfo.Type;
             
             if (reqInfo.Body.Length > 0)
             {
@@ -36,8 +37,7 @@ namespace CommonServerLib
             SessionID = DBResult.SessionID;
 
             PacketID = (short)DBResult.PacketID;
-            Value1 = DBResult.LobbyID;
-            Value2 = 0;
+            LobbyID = DBResult.LobbyID;
             BodyData = DBResult.Datas;
         }
 
@@ -55,8 +55,6 @@ namespace CommonServerLib
             }
 
             packet.SessionID = sessionID;
-            packet.Value1 = 0;
-            packet.Value2 = 0;            
             return packet;
         }
 

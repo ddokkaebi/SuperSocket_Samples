@@ -105,10 +105,12 @@ namespace ChatServer
                             textBoxAddress.Text = values[1];
                             break;
                         case CommonServerLib.InnerMsgType.CREATE_COMPONENT:
-                            textBoxLobbyStartIndex.Text = ChatServerEnvironment.LobbyStartIndex.ToString();
+                            textBoxLobbyStartNumber.Text = ChatServerEnvironment.LobbyStartNumber.ToString();
                             textBoxLobbyThreadCount.Text = ChatServerEnvironment.LobbyThreadCount.ToString();
                             textBoxLobbyCountPerThread.Text = ChatServerEnvironment.LobbyCountPerThread.ToString();
-                            textBoxMaxUserPerLobby.Text = ChatServerEnvironment.MaxUserPerLobby.ToString();
+                            textBoxLobbyMaxRoomCount.Text = ChatServerEnvironment.MaxRoomCountPerLobby.ToString();
+                            textBoxRoomStartNumber.Text = ChatServerEnvironment.RoomStartNumber.ToString();
+                            textBoxRoomMaxUserCount.Text = ChatServerEnvironment.RoomMaxUserCount.ToString();
                             break;
                         case CommonServerLib.InnerMsgType.CURRENT_CONNECT_COUNT:
                             textBoxCurrentUserCount.Text = msg.Value1;

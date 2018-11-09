@@ -23,8 +23,8 @@ namespace ChatServer
         {
             var lobbyThreadCount = ChatServerEnvironment.LobbyThreadCount;
             var lobbyCountPerThread = ChatServerEnvironment.LobbyCountPerThread;
-            var lobbyStartIndex = ChatServerEnvironment.LobbyStartIndex;
-            var maxLobbyUserCount = ChatServerEnvironment.MaxUserPerLobby;
+            var lobbyStartIndex = ChatServerEnvironment.LobbyStartNumber;
+            var maxLobbyUserCount = ChatServerEnvironment.MaxRoomCountPerLobby;
 
 
             LobbyMgr.CreateLobby((lobbyThreadCount * lobbyCountPerThread), lobbyStartIndex, maxLobbyUserCount);
@@ -65,7 +65,8 @@ namespace ChatServer
 
         public void Distribute(ServerPacketData requestPacket)
         {
-            var processor = PacketProcessorList.Find(x => x.관리중인_로비(requestPacket.Value1));
+            //TODO: 꼭 수정 필요. 유저가 속한 방에 따라서 분배한다
+            var processor = PacketProcessorList.Find(x => x.관리중인_로비(0));
 
             if (processor != null)
             {

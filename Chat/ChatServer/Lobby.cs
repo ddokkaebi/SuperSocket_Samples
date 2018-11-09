@@ -12,13 +12,32 @@ namespace ChatServer
     class Lobby
     {
         public int Index { get; private set; }
+        public int Number { get; private set; }
 
-        int MaxUserCount = 0;
+        int MaxRoomCount = 0;
+        List<Room> RoomList = new List<Room>();
 
-        public void Init(int index, int maxUserCount)
+        public void Init(int index, int number, int maxRoomCount)
         {
             Index = index;
-            MaxUserCount = maxUserCount;
+            Number = number;
+            MaxRoomCount = maxRoomCount;
+
+            CreateRooms(maxRoomCount);
+        }
+
+        void CreateRooms(int maxRoomCount)
+        {
+            var startNumber = ChatServerEnvironment.RoomStartNumber;
+            var maxUserCount = ChatServerEnvironment.RoomMaxUserCount;
+
+            for (int i = 0; i < maxRoomCount; ++i)
+            {
+                var room = new Room();
+                room.Init(i, (startNumber + i), maxUserCount);
+
+                RoomList.Add(room);
+            }
         }
 
         public ERROR_CODE AddUser(int lobbyIndex, LobbyUser lobbyUser )

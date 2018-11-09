@@ -12,7 +12,7 @@ namespace ChatServer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -52,12 +52,12 @@ namespace ChatServer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int MaxUserPerLobby {
+        public int MaxRoomCountPerLobby {
             get {
-                return ((int)(this["MaxUserPerLobby"]));
+                return ((int)(this["MaxRoomCountPerLobby"]));
             }
             set {
-                this["MaxUserPerLobby"] = value;
+                this["MaxRoomCountPerLobby"] = value;
             }
         }
         
@@ -75,19 +75,19 @@ namespace ChatServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public int LobbyStartIndex {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int LobbyStartNumber {
             get {
-                return ((int)(this["LobbyStartIndex"]));
+                return ((int)(this["LobbyStartNumber"]));
             }
             set {
-                this["LobbyStartIndex"] = value;
+                this["LobbyStartNumber"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
         public int LobbyThreadCount {
             get {
                 return ((int)(this["LobbyThreadCount"]));
@@ -118,6 +118,30 @@ namespace ChatServer.Properties {
             }
             set {
                 this["DBWorkerThreadCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int RoomMaxUserCount {
+            get {
+                return ((int)(this["RoomMaxUserCount"]));
+            }
+            set {
+                this["RoomMaxUserCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RoomStartNumber {
+            get {
+                return ((int)(this["RoomStartNumber"]));
+            }
+            set {
+                this["RoomStartNumber"] = value;
             }
         }
     }

@@ -12,16 +12,18 @@ namespace ChatServer
     {
         List<Lobby> LobbyList = new List<Lobby>();
 
-        public void CreateLobby(int lobbyCount, int startIndex, int maxUserCount)
+        public void CreateLobby()
         {
+            var lobbyCount = ChatServerEnvironment.LobbyThreadCount * ChatServerEnvironment.LobbyCountPerThread;
+            var lobbyStartNumber = ChatServerEnvironment.LobbyStartNumber;
+            var maxRoomCount = ChatServerEnvironment.MaxRoomCountPerLobby;
+
             for (var i = 0; i < lobbyCount; ++i)
             {
-                var lobyIndex = startIndex + i;
+                var startNumber = lobbyStartNumber + i;
 
                 var lobby = new Lobby();
-
-                lobby.Init(lobyIndex, maxUserCount);
-
+                lobby.Init(i, startNumber, maxRoomCount);
                 LobbyList.Add(lobby);
             }
         }

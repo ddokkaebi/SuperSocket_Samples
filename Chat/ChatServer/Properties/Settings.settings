@@ -11,23 +11,29 @@
     <Setting Name="LobbyCountPerThread" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">2</Value>
     </Setting>
-    <Setting Name="MaxUserPerLobby" Type="System.Int32" Scope="User">
+    <Setting Name="MaxRoomCountPerLobby" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="ChatServerUniqueID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="LobbyStartIndex" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+    <Setting Name="LobbyStartNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LobbyThreadCount" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="RedisDBInfo" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1:6379</Value>
     </Setting>
     <Setting Name="DBWorkerThreadCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="RoomMaxUserCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="RoomStartNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

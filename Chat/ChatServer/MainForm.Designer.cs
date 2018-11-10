@@ -83,6 +83,7 @@
             // 
             this.textBoxServerID.Location = new System.Drawing.Point(99, 13);
             this.textBoxServerID.Name = "textBoxServerID";
+            this.textBoxServerID.ReadOnly = true;
             this.textBoxServerID.Size = new System.Drawing.Size(73, 21);
             this.textBoxServerID.TabIndex = 5;
             // 
@@ -99,6 +100,7 @@
             // 
             this.textBoxAddress.Location = new System.Drawing.Point(99, 38);
             this.textBoxAddress.Name = "textBoxAddress";
+            this.textBoxAddress.ReadOnly = true;
             this.textBoxAddress.Size = new System.Drawing.Size(73, 21);
             this.textBoxAddress.TabIndex = 3;
             // 
@@ -115,6 +117,7 @@
             // 
             this.textBoxCurrentUserCount.Location = new System.Drawing.Point(134, 65);
             this.textBoxCurrentUserCount.Name = "textBoxCurrentUserCount";
+            this.textBoxCurrentUserCount.ReadOnly = true;
             this.textBoxCurrentUserCount.Size = new System.Drawing.Size(38, 21);
             this.textBoxCurrentUserCount.TabIndex = 1;
             this.textBoxCurrentUserCount.Text = "0";
@@ -149,6 +152,7 @@
             // 
             this.textBoxLobbyMaxRoomCount.Location = new System.Drawing.Point(147, 89);
             this.textBoxLobbyMaxRoomCount.Name = "textBoxLobbyMaxRoomCount";
+            this.textBoxLobbyMaxRoomCount.ReadOnly = true;
             this.textBoxLobbyMaxRoomCount.Size = new System.Drawing.Size(52, 21);
             this.textBoxLobbyMaxRoomCount.TabIndex = 7;
             // 
@@ -165,6 +169,7 @@
             // 
             this.textBoxLobbyCountPerThread.Location = new System.Drawing.Point(147, 64);
             this.textBoxLobbyCountPerThread.Name = "textBoxLobbyCountPerThread";
+            this.textBoxLobbyCountPerThread.ReadOnly = true;
             this.textBoxLobbyCountPerThread.Size = new System.Drawing.Size(53, 21);
             this.textBoxLobbyCountPerThread.TabIndex = 5;
             // 
@@ -181,6 +186,7 @@
             // 
             this.textBoxLobbyStartNumber.Location = new System.Drawing.Point(147, 13);
             this.textBoxLobbyStartNumber.Name = "textBoxLobbyStartNumber";
+            this.textBoxLobbyStartNumber.ReadOnly = true;
             this.textBoxLobbyStartNumber.Size = new System.Drawing.Size(53, 21);
             this.textBoxLobbyStartNumber.TabIndex = 3;
             // 
@@ -197,6 +203,7 @@
             // 
             this.textBoxLobbyThreadCount.Location = new System.Drawing.Point(147, 37);
             this.textBoxLobbyThreadCount.Name = "textBoxLobbyThreadCount";
+            this.textBoxLobbyThreadCount.ReadOnly = true;
             this.textBoxLobbyThreadCount.Size = new System.Drawing.Size(53, 21);
             this.textBoxLobbyThreadCount.TabIndex = 1;
             // 
@@ -226,6 +233,7 @@
             // 
             this.textBoxRoomStartNumber.Location = new System.Drawing.Point(115, 13);
             this.textBoxRoomStartNumber.Name = "textBoxRoomStartNumber";
+            this.textBoxRoomStartNumber.ReadOnly = true;
             this.textBoxRoomStartNumber.Size = new System.Drawing.Size(53, 21);
             this.textBoxRoomStartNumber.TabIndex = 3;
             // 
@@ -242,6 +250,7 @@
             // 
             this.textBoxRoomMaxUserCount.Location = new System.Drawing.Point(115, 37);
             this.textBoxRoomMaxUserCount.Name = "textBoxRoomMaxUserCount";
+            this.textBoxRoomMaxUserCount.ReadOnly = true;
             this.textBoxRoomMaxUserCount.Size = new System.Drawing.Size(53, 21);
             this.textBoxRoomMaxUserCount.TabIndex = 1;
             // 

@@ -27,7 +27,7 @@ namespace ChatServer
             var maxLobbyUserCount = ChatServerEnvironment.MaxRoomCountPerLobby;
 
 
-            LobbyMgr.CreateLobby((lobbyThreadCount * lobbyCountPerThread), lobbyStartIndex, maxLobbyUserCount);
+            LobbyMgr.CreateLobby();
             
             CommonPacketProcessor = new PacketProcessor();
             CommonPacketProcessor.CreateAndStart(true, null, mainServer);
@@ -66,6 +66,7 @@ namespace ChatServer
         public void Distribute(ServerPacketData requestPacket)
         {
             //TODO: 꼭 수정 필요. 유저가 속한 방에 따라서 분배한다
+            // 방나가기는 모든 로비 처리에 다 보낸다.
             var processor = PacketProcessorList.Find(x => x.관리중인_로비(0));
 
             if (processor != null)

@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChatServer
 {
-    class ConnectSession
-    {
-    }
-
-    // 전체 연결된 세션의 상태 관리
-    class ConnectSessionManager
+    //로비에서 관리하는 룸에 있는 유저의 세션 상태 관리
+    class LobbyConnectionSessionManager
     {
     }
 }

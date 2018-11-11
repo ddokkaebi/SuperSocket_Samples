@@ -14,15 +14,10 @@ namespace ChatServer
 {
     public class PKHCommon : PKHandler
     {
-        MainServer ServerNetwork;
+        //TODO: 제거해야 할 듯
         UserManager ClientUserManager = new UserManager();
 
-
-        public void Init(MainServer serverNetwork)
-        {
-            ServerNetwork = serverNetwork;
-        }
-
+                
         public void NotifyInConnectClient(ServerPacketData requestData)
         {
             requestData = null;
@@ -60,7 +55,7 @@ namespace ChatServer
                 var dbReqLogin = new DBReqLogin() { AuthToken = reqData.AuthToken };
                 var jobDatas = MessagePackSerializer.Serialize(dbReqLogin);
                 
-                var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, packetData.SessionID, packetData.Value1, reqData.UserID, jobDatas);
+                var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, packetData.SessionID, reqData.UserID, jobDatas);
                 RequestDBJob(ServerNetwork.GetPacketDistributor(), dbQueue);
                                 
                 DevLog.Write("DB에 로그인 요청 보냄", LOG_LEVEL.DEBUG);

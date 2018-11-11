@@ -27,7 +27,7 @@ namespace ChatServer
         PKHCommon CommonPacketHandler = null;
 
         
-        public void CreateAndStart(bool IsCommon, List<Lobby> lobbyList, MainServer mainServer)
+        public void CreateAndStart(bool IsCommon, List<Lobby> lobbyList, MainServer mainServer, ConnectSessionManager sessionMgr)
         {
             공용_프로세서 = IsCommon;
 
@@ -37,7 +37,7 @@ namespace ChatServer
                 LobbyIndexRange = new Tuple<int, int>(lobbyList[0].Index, (lobbyList[0].Index + LobbyList.Count()));
             }
 
-            RegistPacketHandler(mainServer);
+            RegistPacketHandler(mainServer, sessionMgr);
 
             IsThreadRunning = true;
             ProcessThread = new System.Threading.Thread(this.Process);
@@ -68,10 +68,10 @@ namespace ChatServer
         }
 
         
-        void RegistPacketHandler(MainServer mainServer)
+        void RegistPacketHandler(MainServer serverNetwork, ConnectSessionManager sessionManager)
         {
             CommonPacketHandler = new PKHCommon();
-            CommonPacketHandler.Init(mainServer);
+            CommonPacketHandler.Init(serverNetwork, sessionManager);
 
             PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
             PacketHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, CommonPacketHandler.NotifyInDisConnectClient);

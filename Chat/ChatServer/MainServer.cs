@@ -24,7 +24,8 @@ namespace ChatServer
         IBootstrap ActiveServerBootstrap;
         static RemoteConnectCheck RemoteCheck = null;
         static PacketDistributor Distributor = null;
-        
+
+        public int MaxConnectionNumber { get; private set; } = 0;
 
         public MainServer()
             : base(new DefaultReceiveFilterFactory<ReceiveFilter, EFBinaryRequestInfo>())
@@ -70,6 +71,8 @@ namespace ChatServer
 
             var appServer = ActiveServerBootstrap.AppServers.FirstOrDefault() as MainServer;
             InnerMessageHostProgram.ServerStart(ChatServerEnvironment.ChatServerUniqueID, appServer.Config.Port);
+
+            MaxConnectionNumber = appServer.Config.MaxConnectionNumber;
         }
 
         public void StartRemoteConnect()

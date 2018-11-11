@@ -16,7 +16,6 @@ namespace CommonServerLib
         public SByte Type;
         public byte[] BodyData;
 
-        public Int16 LobbyID;
         
         public void Assign(string sessionID, EFBinaryRequestInfo reqInfo)
         {
@@ -37,7 +36,6 @@ namespace CommonServerLib
             SessionID = DBResult.SessionID;
 
             PacketID = (short)DBResult.PacketID;
-            LobbyID = DBResult.LobbyID;
             BodyData = DBResult.Datas;
         }
 

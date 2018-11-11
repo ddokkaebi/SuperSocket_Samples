@@ -8,6 +8,7 @@ using CSBaseLib;
 
 namespace ChatServer
 {
+    //TODO: 필요 없을 듯...
     class UserManager
     {
         Int64 UserSequenceNumber = 0;
@@ -72,6 +73,7 @@ namespace ChatServer
         Int64 SequenceNumber = 0;
         string SessionID;
         bool Authorized;
+        
 
         public void Set(Int64 sequence, string sessionID)
         {
@@ -90,6 +92,6 @@ namespace ChatServer
             Authorized = true;
 
             return true;
-        }
+        }       
     }
 }

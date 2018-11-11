@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="ChatServerEnvironment.cs" />
     <Compile Include="ClientSession.cs" />
+    <Compile Include="ConnectSession.cs" />
     <Compile Include="ConnectSessionManager.cs" />
     <Compile Include="Lobby.cs" />
     <Compile Include="LobbyConnectionSessionManager.cs" />

@@ -70,7 +70,6 @@ namespace CommonServerLib
             {
                 PacketID = PACKETID.RES_DB_LOGIN,
                 SessionID = dbQueue.SessionID,
-                LobbyID = dbQueue.LobbyID,
             };
 
             var resLoginData = new DBResLogin() { UserID = dbQueue.UserID, Result = result };

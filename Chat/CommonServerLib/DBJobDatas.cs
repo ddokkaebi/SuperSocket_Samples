@@ -13,7 +13,6 @@ namespace CommonServerLib
     {
         public PACKETID PacketID;
         public string SessionID;
-        public short LobbyID;
         public string UserID;
         public byte[] Datas;
     }
@@ -22,7 +21,6 @@ namespace CommonServerLib
     {
         public PACKETID PacketID;
         public string SessionID;
-        public short LobbyID;
         public byte[] Datas;
     }
 

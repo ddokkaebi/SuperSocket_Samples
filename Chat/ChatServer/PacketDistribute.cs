@@ -11,6 +11,7 @@ namespace ChatServer
 {
     public class PacketDistributor
     {
+        ConnectSessionManager SessionManager = new ConnectSessionManager();
         PacketProcessor CommonPacketProcessor = null;
         List<PacketProcessor> PacketProcessorList = new List<PacketProcessor>();
 
@@ -27,10 +28,12 @@ namespace ChatServer
             var maxLobbyUserCount = ChatServerEnvironment.MaxRoomCountPerLobby;
 
 
+            SessionManager.CreateSession(mainServer.MaxConnectionNumber);
+
             LobbyMgr.CreateLobby();
             
             CommonPacketProcessor = new PacketProcessor();
-            CommonPacketProcessor.CreateAndStart(true, null, mainServer);
+            CommonPacketProcessor.CreateAndStart(true, null, mainServer, SessionManager);
                         
             for (int i = 0; i < lobbyThreadCount; ++i)
             {
@@ -39,7 +42,7 @@ namespace ChatServer
                 var lobbyList = LobbyMgr.GetLobbyList(lobbyBeginIndex, lobbyEndIndex);
 
                 var packetProcess = new PacketProcessor();
-                packetProcess.CreateAndStart(false, lobbyList, mainServer);
+                packetProcess.CreateAndStart(false, lobbyList, mainServer, SessionManager);
                 PacketProcessorList.Add(packetProcess);
             }
 
@@ -90,8 +93,8 @@ namespace ChatServer
             var requestPacket = new ServerPacketData();
             requestPacket.Assign(resultData);
 
-            var processor = PacketProcessorList.Find(x => x.관리중인_로비(requestPacket.Value1));
-
+            //TODO: 방 번호에 의해서 찾도록 한다.
+            var processor = PacketProcessorList.Find(x => x.관리중인_로비(-1));
             if (processor != null)
             {
                 processor.InsertMsg(false, requestPacket);

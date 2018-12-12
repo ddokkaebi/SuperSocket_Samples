@@ -8,7 +8,9 @@ using CSBaseLib;
 
 namespace ChatServer
 {
-    //TODO: 필요 없을 듯...
+    //TODO 제거하기!!!
+    /*
+    
     class UserManager
     {
         Int64 UserSequenceNumber = 0;
@@ -94,4 +96,5 @@ namespace ChatServer
             return true;
         }       
     }
+    */
 }

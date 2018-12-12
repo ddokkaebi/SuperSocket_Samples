@@ -11,14 +11,16 @@ namespace CommonServerLib
     public class ServerPacketData
     {
         public Int16 PacketSize;
-        public string SessionID;
+        public string SessionID; 
+        public int SessionIndex;
         public Int16 PacketID;        
         public SByte Type;
         public byte[] BodyData;
 
         
-        public void Assign(string sessionID, EFBinaryRequestInfo reqInfo)
+        public void Assign(string sessionID, int sessionIndex, EFBinaryRequestInfo reqInfo)
         {
+            SessionIndex = sessionIndex;
             SessionID = sessionID;
 
             PacketSize = reqInfo.Size;
@@ -33,13 +35,14 @@ namespace CommonServerLib
 
         public void Assign(DBResultQueue DBResult)
         {
+            SessionIndex = DBResult.SessionIndex;
             SessionID = DBResult.SessionID;
 
             PacketID = (short)DBResult.PacketID;
             BodyData = DBResult.Datas;
         }
 
-        public static ServerPacketData MakeNTFInConnectOrDisConnectClientPacket(bool isConnect, string sessionID)
+        public static ServerPacketData MakeNTFInConnectOrDisConnectClientPacket(bool isConnect, string sessionID, int sessionIndex)
         {
             var packet = new ServerPacketData();
             
@@ -52,6 +55,7 @@ namespace CommonServerLib
                 packet.PacketID = (Int32)PACKETID.NTF_IN_DISCONNECT_CLIENT;
             }
 
+            packet.SessionIndex = sessionIndex;
             packet.SessionID = sessionID;
             return packet;
         }

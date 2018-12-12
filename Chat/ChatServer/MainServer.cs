@@ -161,18 +161,18 @@ namespace ChatServer
         {
             DevLog.Write(string.Format("세션 번호 {0} 접속", session.SessionID), LOG_LEVEL.INFO);
 
-            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID);
+            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID, session.SessionIndex);
             
-            Distributor.Distribute(packet);
+            Distributor.DistributeSystem(packet);
         }
 
         void OnClosed(ClientSession session, CloseReason reason)
         {
             DevLog.Write(string.Format("세션 번호 {0} 접속해제: {1}", session.SessionID, reason.ToString()), LOG_LEVEL.INFO);
 
-            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID);
+            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID, session.SessionIndex);
 
-            Distributor.Distribute(packet);
+            Distributor.DistributeSystem(packet);
         }
 
         void OnPacketReceived(ClientSession session, EFBinaryRequestInfo reqInfo)
@@ -180,7 +180,7 @@ namespace ChatServer
             DevLog.Write(string.Format("세션 번호 {0} 받은 데이터 크기: {1}, ThreadId: {2}", session.SessionID, reqInfo.Body.Length, System.Threading.Thread.CurrentThread.ManagedThreadId), LOG_LEVEL.TRACE);
 
             var packet = new ServerPacketData();
-            packet.Assign(session.SessionID, reqInfo);
+            packet.Assign(session.SessionID, session.SessionIndex, reqInfo);
 
             Distributor.Distribute(packet);
         }

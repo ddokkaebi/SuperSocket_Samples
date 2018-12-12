@@ -10,15 +10,18 @@ namespace ChatServer
     enum SessionStatus
     {
         NONE = 0,
-        LOGIN = 1,
-        ROOM_ENTERING = 2,
-        ROOM = 3,
+        LOGIN_ING = 1,
+        LOGIN = 2,
+        ROOM_ENTERING = 3,
+        ROOM = 4,
     }
 
     class ConnectSession
     {
         public bool IsEnable = true;
         int CurrentState = (int)SessionStatus.NONE;
+        string UserID;
+        Int64 LobbyIndex = -1;
         int RoomNumber = -1;
 
         public void Clear()
@@ -27,14 +30,45 @@ namespace ChatServer
             RoomNumber = -1;
         }
 
-        public void SetStateLogin()
+        public bool IsStateNone()
+        {
+            return (IsEnable && CurrentState == (int)SessionStatus.NONE);
+        }
+
+        public void SetStateNone()
         {
             if (IsEnable == false)
             {
                 return;
             }
 
-            Interlocked.Exchange(ref CurrentState, (int)SessionStatus.LOGIN);
+            CurrentState = (int)SessionStatus.NONE;
+        }
+
+        public void SetStatePreLogin()
+        {
+            if (IsEnable == false)
+            {
+                return;
+            }
+
+            CurrentState = (int)SessionStatus.LOGIN_ING;
+        }
+
+        public void SetStateLogin(string userID)
+        {
+            if (IsEnable == false)
+            {
+                return;
+            }
+
+            CurrentState = (int)SessionStatus.LOGIN;
+            UserID = userID;
+        }
+
+        public int GetLobbyIndex()
+        {
+            return (int)Interlocked.Read(ref LobbyIndex);
         }
 
         public bool SetPreRoomEnter(int roomNumber)
@@ -54,7 +88,7 @@ namespace ChatServer
             return true;
         }
 
-        public bool SetRoomEntered(int roomNumber)
+        public bool SetRoomEntered(int lobbyIndex, int roomNumber)
         {
             if (IsEnable == false)
             {
@@ -67,6 +101,7 @@ namespace ChatServer
                 return false;
             }
 
+            Interlocked.Exchange(ref LobbyIndex, lobbyIndex);
             return true;
         }
     }

@@ -20,6 +20,7 @@ namespace CSBaseLib
         REMOVE_USER_SEARCH_FAILURE_USER_ID  = 1003,
         USER_AUTH_SEARCH_FAILURE_USER_ID    = 1004,
         USER_AUTH_ALREADY_SET_AUTH          = 1005,
+        LOGIN_ALREADY_WORKING = 1006,
 
         DB_LOGIN_INVALID_PASSWORD   = 1011,
         DB_LOGIN_EMPTY_USER         = 1012,
@@ -31,14 +32,7 @@ namespace CSBaseLib
     {
         REQ_TEST_ECHO = 1,
         RES_TEST_ECHO = 2,
-
-        NTF_IN_CONNECT_CLIENT       = 11,
-        NTF_IN_DISCONNECT_CLIENT    = 12,
-
-        REQ_SS_SERVERINFO   = 31,
-        RES_SS_SERVERINFO   = 32,
-
-
+               
         // 클라이언트
         CS_BEGIN        = 1001,
 
@@ -61,8 +55,16 @@ namespace CSBaseLib
         CS_END          = 1100,
 
 
-        // 서버 - 서버
-        // DB 8001 ~ 9000
+        // 시스템, 서버 - 서버
+        SS_START    = 8001,
+
+        NTF_IN_CONNECT_CLIENT = 8011,
+        NTF_IN_DISCONNECT_CLIENT = 8012,
+
+        REQ_SS_SERVERINFO = 8021,
+        RES_SS_SERVERINFO = 8023,
+
+        // DB 8101 ~ 9000
         REQ_DB_LOGIN        = 8101,
         RES_DB_LOGIN        = 8102,
     }

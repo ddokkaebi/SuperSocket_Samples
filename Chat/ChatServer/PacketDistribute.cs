@@ -46,8 +46,7 @@ namespace ChatServer
                 PacketProcessorList.Add(packetProcess);
             }
 
-
-            var error = DBWorker.CreateAndStart(ChatServerEnvironment.DBWorkerThreadCount, DBWorkResultFunc, ChatServerEnvironment.RedisAddress);
+            var error = DBWorker.CreateAndStart(ChatServerEnvironment.DBWorkerThreadCount, DistributeDBJobResult, ChatServerEnvironment.RedisAddress);
             if (error != ERROR_CODE.NONE)
             {
                 return error;
@@ -68,33 +67,54 @@ namespace ChatServer
 
         public void Distribute(ServerPacketData requestPacket)
         {
-            //TODO: 꼭 수정 필요. 유저가 속한 방에 따라서 분배한다
-            // 방나가기는 모든 로비 처리에 다 보낸다.
-            var processor = PacketProcessorList.Find(x => x.관리중인_로비(0));
+            var packetId = (PACKETID)requestPacket.PacketID;
+            var sessionIndex = requestPacket.SessionIndex;
+                        
+            if(IsClientRequestPacket(packetId) == false)
+            {
+                //TODO 로그 남기고, 어떤 처리를 해야 할듯
+                return; 
+            }
 
+            if(IsClientRequestCommonPacket(packetId))
+            {
+                CommonPacketProcessor.InsertMsg(true, requestPacket);
+                return;
+            }
+
+
+            var lobbyIndex = SessionManager.GetLobbyIndex(sessionIndex);
+            var processor = PacketProcessorList.Find(x => x.관리중인_로비(lobbyIndex));
             if (processor != null)
             {
                 processor.InsertMsg(true, requestPacket);
             }
             else
             {
-                CommonPacketProcessor.InsertMsg(true, requestPacket);
+                //TODO 로그 남기고, 어떤 처리를 해야 할듯      
             }
         }
 
+        public void DistributeSystem(ServerPacketData requestPacket)
+        {
+            CommonPacketProcessor.InsertMsg(true, requestPacket);
+        }
 
-        public void RequestDBJob(DBQueue dbQueue)
+
+        public void DistributeDBJobRequest(DBQueue dbQueue)
         {
             DBWorker.InsertMsg(dbQueue);
         }
 
-        public void DBWorkResultFunc(DBResultQueue resultData)
+        public void DistributeDBJobResult(DBResultQueue resultData)
         {
+            var sessionIndex = resultData.SessionIndex;
+
             var requestPacket = new ServerPacketData();
             requestPacket.Assign(resultData);
 
-            //TODO: 방 번호에 의해서 찾도록 한다.
-            var processor = PacketProcessorList.Find(x => x.관리중인_로비(-1));
+            var lobbyIndex = SessionManager.GetLobbyIndex(sessionIndex);
+            var processor = PacketProcessorList.Find(x => x.관리중인_로비(lobbyIndex));
             if (processor != null)
             {
                 processor.InsertMsg(false, requestPacket);
@@ -105,5 +125,19 @@ namespace ChatServer
             }
         }
 
+        bool IsClientRequestCommonPacket(PACKETID packetId )
+        {
+            if ( packetId == PACKETID.REQ_LOGIN || packetId == PACKETID.REQ_ROOM_ENTER)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        bool IsClientRequestPacket(PACKETID packetId)
+        {
+            return (PACKETID.CS_BEGIN < packetId && packetId < PACKETID.CS_END);
+         }
     }
 }

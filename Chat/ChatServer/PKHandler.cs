@@ -23,17 +23,17 @@ namespace ChatServer
 
         public bool RequestDBJob(PacketDistributor distributor, DBQueue dbQueue)
         {
-            distributor.RequestDBJob(dbQueue);
+            distributor.DistributeDBJobRequest(dbQueue);
             return true;
         }
 
-        public DBQueue MakeDBQueue(PACKETID packetID, string sessionID, string userID, byte[] jobDatas)
+        public DBQueue MakeDBQueue(PACKETID packetID, string sessionID, int sessionIndex, byte[] jobDatas)
         {
             var dbQueue = new DBQueue()
             {
                 PacketID    = packetID,
                 SessionID   = sessionID,
-                UserID      = userID, 
+                SessionIndex = sessionIndex, 
                 Datas       = jobDatas
             };
 

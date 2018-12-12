@@ -33,16 +33,21 @@ namespace CommonServerLib
 
         public DBResultQueue RequestLogin(DBQueue dbQueue)
         {
+            var sessionID = dbQueue.SessionID;
+            var sessionIndex = dbQueue.SessionIndex;
+            var userID = "UnKnown";
+            
             try
             {
                 var reqData = MessagePackSerializer.Deserialize<DBReqLogin>(dbQueue.Datas);
+                userID = reqData.UserID;
 
                 // 필드 단위로 읽어 올 때는 꼭 Key가 있는지 확인 해야 한다!!!
-                var redis = RefRedis.GetString(dbQueue.UserID);
+                var redis = RefRedis.GetString(reqData.UserID);
                 var value = redis.Result;                
                 if (value.IsNullOrEmpty)
                 {
-                    return RequestLoginValue(ERROR_CODE.DB_LOGIN_EMPTY_USER, dbQueue);
+                    return RequestLoginValue(ERROR_CODE.DB_LOGIN_EMPTY_USER, userID, sessionID, sessionIndex);
                 }
 
 
@@ -51,28 +56,29 @@ namespace CommonServerLib
 
                 if( reqData.AuthToken != tokenString[0])
                 {
-                    return RequestLoginValue(ERROR_CODE.DB_LOGIN_INVALID_PASSWORD, dbQueue);
+                    return RequestLoginValue(ERROR_CODE.DB_LOGIN_INVALID_PASSWORD, userID, sessionID, sessionIndex);
                 }
                 else
                 {
-                    return RequestLoginValue(ERROR_CODE.NONE, dbQueue);
+                    return RequestLoginValue(ERROR_CODE.NONE, userID, sessionID, sessionIndex);
                 }
             }
             catch
             {
-                return RequestLoginValue(ERROR_CODE.DB_LOGIN_EXCEPTION, dbQueue);
+                return RequestLoginValue(ERROR_CODE.DB_LOGIN_EXCEPTION, userID, sessionID, sessionIndex);
             }
         }
 
-        DBResultQueue RequestLoginValue(ERROR_CODE result, DBQueue dbQueue)
+        DBResultQueue RequestLoginValue(ERROR_CODE result, string userID, string sessionID, int sessionIndex)
         {
             var returnData = new DBResultQueue()
             {
                 PacketID = PACKETID.RES_DB_LOGIN,
-                SessionID = dbQueue.SessionID,
+                SessionID = sessionID,
+                SessionIndex = sessionIndex
             };
 
-            var resLoginData = new DBResLogin() { UserID = dbQueue.UserID, Result = result };
+            var resLoginData = new DBResLogin() { UserID = userID, Result = result };
             returnData.Datas = MessagePackSerializer.Serialize(resLoginData);
             
             return returnData;

@@ -27,10 +27,34 @@ namespace ChatServer
             DisAbleSession.IsEnable = false;
         }
 
-        public void SetLogin(int index)
+        public int GetLobbyIndex(int index)
         {
             var session = GetSession(index);
-            session.SetStateLogin();
+            return session.GetLobbyIndex();
+        }
+
+        public bool EnableReuqestLogin(int index)
+        {
+            var session = GetSession(index);
+            return session.IsStateNone();
+        }
+
+        public void SetPreLogin(int index)
+        {
+            var session = GetSession(index);
+            session.SetStatePreLogin();
+        }
+
+        public void SetLogin(int index, string userID)
+        {
+            var session = GetSession(index);
+            session.SetStateLogin(userID);
+        }
+
+        public void SetStateNone(int index)
+        {
+            var session = GetSession(index);
+            session.SetStateNone();
         }
 
         public bool SetPreRoomEnter(int index, int roomNumber)
@@ -39,10 +63,10 @@ namespace ChatServer
             return session.SetPreRoomEnter(roomNumber);
         }
 
-        public bool SetRoomEntered(int index, int roomNumber)
+        public bool SetRoomEntered(int index, int lobbyIndex, int roomNumber)
         {
             var session = GetSession(index);
-            return session.SetRoomEntered(roomNumber);
+            return session.SetRoomEntered(lobbyIndex, roomNumber);
         }
 
 

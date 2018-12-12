@@ -15,7 +15,7 @@ namespace ChatServer
     public class PKHCommon : PKHandler
     {
         //TODO: 제거해야 할 듯
-        UserManager ClientUserManager = new UserManager();
+        //UserManager ClientUserManager = new UserManager();
 
                 
         public void NotifyInConnectClient(ServerPacketData requestData)
@@ -23,6 +23,9 @@ namespace ChatServer
             requestData = null;
 
             InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);
+
+            //TODO 최대 유저 수가 넘는 경우 여기서 접속 종료를 통보한다
+            // 로그인 요청도 못하게 관련 flag을 셋해야 한다.
         }
 
         public void NotifyInDisConnectClient(ServerPacketData requestData)
@@ -35,27 +38,28 @@ namespace ChatServer
 
         public void RequestLogin(ServerPacketData packetData)
         {
+            var sessionID = packetData.SessionID;
+            var sessionIndex = packetData.SessionIndex;
             DevLog.Write("로그인 요청 받음", LOG_LEVEL.DEBUG);
 
             try
             {
-                var reqData = MessagePackSerializer.Deserialize< PKTReqLogin>(packetData.BodyData);
-
-                // 일단 임시로 유저 등록을 한다.
-                var error = ClientUserManager.AddUser(reqData.UserID, packetData.SessionID);
-
-                if(error != ERROR_CODE.NONE)
+                if( SessionManager.EnableReuqestLogin(sessionIndex) == false)
                 {
-                    ResponseLoginToClient(error, packetData.SessionID);
+                    ResponseLoginToClient(ERROR_CODE.LOGIN_ALREADY_WORKING, packetData.SessionID);
                     return;
                 }
 
+                var reqData = MessagePackSerializer.Deserialize< PKTReqLogin>(packetData.BodyData);
 
+                // 세션의 상태를 바꾼다
+                SessionManager.SetPreLogin(sessionIndex);
+                
                 // DB 작업 의뢰한다.
                 var dbReqLogin = new DBReqLogin() { AuthToken = reqData.AuthToken };
                 var jobDatas = MessagePackSerializer.Serialize(dbReqLogin);
                 
-                var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, packetData.SessionID, reqData.UserID, jobDatas);
+                var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, sessionID, sessionIndex, jobDatas);
                 RequestDBJob(ServerNetwork.GetPacketDistributor(), dbQueue);
                                 
                 DevLog.Write("DB에 로그인 요청 보냄", LOG_LEVEL.DEBUG);
@@ -69,6 +73,7 @@ namespace ChatServer
 
         public void ResponseLoginFromDB(ServerPacketData packetData)
         {
+            var sessionIndex = packetData.SessionIndex;
             DevLog.Write("DB에서 로그인 답변 받음", LOG_LEVEL.DEBUG);
 
             try
@@ -80,11 +85,12 @@ namespace ChatServer
 
                 if (resData.Result == ERROR_CODE.NONE)
                 {
-                    errorCode = ClientUserManager.유저_인증_완료(resData.UserID);
+                    SessionManager.SetLogin(sessionIndex, resData.UserID);
                 }
                 else
                 {
                     errorCode = ERROR_CODE.LOGIN_INVALID_AUTHTOKEN;
+                    SessionManager.SetStateNone(sessionIndex);
                 }
                 
                 ResponseLoginToClient(errorCode, packetData.SessionID);

@@ -19,22 +19,27 @@ namespace ChatServer
         System.Threading.Thread ProcessThread = null;
         
         BufferBlock<ServerPacketData> MsgBuffer = new BufferBlock<ServerPacketData>();
-        
-        List<Lobby> LobbyList = null;
-        Tuple<int,int> LobbyIndexRange = null;
+
+        //List<Lobby> LobbyList = null;
+        Tuple<int,int> RoomNumberRange = new Tuple<int, int>(-1, -1);
+        List<Room> RoomList = new List<Room>();
 
         Dictionary<int, Action<ServerPacketData>> PacketHandlerMap = new Dictionary<int, Action<ServerPacketData>>();
-        PKHCommon CommonPacketHandler = null;
+        PKHCommon CommonPacketHandler = new PKHCommon();
+        PKHRoom RoomPacketHandler = new PKHRoom();
 
-        
-        public void CreateAndStart(bool IsCommon, List<Lobby> lobbyList, MainServer mainServer, ConnectSessionManager sessionMgr)
+
+        public void CreateAndStart(bool IsCommon, List<Room> roomList, MainServer mainServer, ConnectSessionManager sessionMgr)
         {
             공용_프로세서 = IsCommon;
 
-            if (lobbyList != null)
+            if (IsCommon == false)
             {
-                LobbyList = lobbyList;
-                LobbyIndexRange = new Tuple<int, int>(lobbyList[0].Index, (lobbyList[0].Index + LobbyList.Count()));
+                RoomList = roomList;
+
+                var minRoomNum = RoomList[0].Number;
+                var maxRoomNum = RoomList[0].Number + RoomList.Count() - 1;
+                RoomNumberRange = new Tuple<int, int>(minRoomNum, maxRoomNum);
             }
 
             RegistPacketHandler(mainServer, sessionMgr);
@@ -50,9 +55,10 @@ namespace ChatServer
             MsgBuffer.Complete();
         }
 
-        public bool 관리중인_로비(int lobbyIndex)
+        public bool 관리중인_Room(int roomNumber)
         {
-            return lobbyIndex.InRange(LobbyIndexRange.Item1, (LobbyIndexRange.Item2 - 1));
+            //TODO RoomNumberRange.Item2도 포함되는지 확인하기
+            return roomNumber.InRange(RoomNumberRange.Item1, RoomNumberRange.Item2);
         }
 
         public void InsertMsg(bool isClientRequest, ServerPacketData data)
@@ -70,7 +76,6 @@ namespace ChatServer
         
         void RegistPacketHandler(MainServer serverNetwork, ConnectSessionManager sessionManager)
         {
-            CommonPacketHandler = new PKHCommon();
             CommonPacketHandler.Init(serverNetwork, sessionManager);
 
             PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
@@ -79,8 +84,11 @@ namespace ChatServer
             
             PacketHandlerMap.Add((int)PACKETID.REQ_LOGIN, CommonPacketHandler.RequestLogin);
             PacketHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, CommonPacketHandler.ResponseLoginFromDB);
-           
-                        
+
+
+
+            RoomPacketHandler.Init(RoomList);
+
             // 개발
             PacketHandlerMap.Add((int)PACKETID.REQ_TEST_ECHO, CommonPacketHandler.RequestTestEcho);
             //

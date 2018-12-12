@@ -9,6 +9,9 @@ using CSBaseLib;
 
 namespace ChatServer
 {
+    //TODO 삭제 예정
+
+        /*
     class Lobby
     {
         public int Index { get; private set; }
@@ -55,4 +58,5 @@ namespace ChatServer
             return ERROR_CODE.NONE;
         }
     }
+    */
 }

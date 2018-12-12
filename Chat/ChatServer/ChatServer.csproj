@@ -89,7 +89,6 @@
     <Compile Include="ConnectSession.cs" />
     <Compile Include="ConnectSessionManager.cs" />
     <Compile Include="Lobby.cs" />
-    <Compile Include="LobbyConnectionSessionManager.cs" />
     <Compile Include="LobbyManager.cs" />
     <Compile Include="LobbyUser.cs" />
     <Compile Include="MainForm.cs">
@@ -103,10 +102,12 @@
     <Compile Include="PacketProcessor.cs" />
     <Compile Include="PKHCommon.cs" />
     <Compile Include="PKHandler.cs" />
+    <Compile Include="PKHRoom.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteConnectCheck.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="RoomManager.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UserManager.cs" />
     <EmbeddedResource Include="MainForm.resx">

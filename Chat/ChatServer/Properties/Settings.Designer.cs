@@ -12,7 +12,7 @@ namespace ChatServer.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -39,25 +39,13 @@ namespace ChatServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int LobbyCountPerThread {
-            get {
-                return ((int)(this["LobbyCountPerThread"]));
-            }
-            set {
-                this["LobbyCountPerThread"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public int MaxRoomCountPerLobby {
+        public int RoomMaxCountPerThread {
             get {
-                return ((int)(this["MaxRoomCountPerLobby"]));
+                return ((int)(this["RoomMaxCountPerThread"]));
             }
             set {
-                this["MaxRoomCountPerLobby"] = value;
+                this["RoomMaxCountPerThread"] = value;
             }
         }
         
@@ -75,25 +63,13 @@ namespace ChatServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int LobbyStartNumber {
-            get {
-                return ((int)(this["LobbyStartNumber"]));
-            }
-            set {
-                this["LobbyStartNumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("4")]
-        public int LobbyThreadCount {
+        public int RoomThreadCount {
             get {
-                return ((int)(this["LobbyThreadCount"]));
+                return ((int)(this["RoomThreadCount"]));
             }
             set {
-                this["LobbyThreadCount"] = value;
+                this["RoomThreadCount"] = value;
             }
         }
         

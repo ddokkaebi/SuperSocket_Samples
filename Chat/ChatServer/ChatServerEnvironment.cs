@@ -10,10 +10,8 @@ namespace ChatServer
     {
         public static int ChatServerUniqueID    = 0;
         
-        public static int LobbyStartNumber       = 0;
-        public static int MaxRoomCountPerLobby       = 0;
-        public static int LobbyCountPerThread   = 0;
-        public static int LobbyThreadCount      = 0;
+        public static int RoomMaxCountPerThread = 0;
+        public static int RoomThreadCount      = 0;
         public static int RoomMaxUserCount = 0;
         public static int RoomStartNumber = 0;
 
@@ -25,10 +23,9 @@ namespace ChatServer
         public static void Setting()
         {
             ChatServerUniqueID  = Properties.Settings.Default.ChatServerUniqueID;
-            LobbyStartNumber     = Properties.Settings.Default.LobbyStartNumber;
-            MaxRoomCountPerLobby     = Properties.Settings.Default.MaxRoomCountPerLobby;
-            LobbyCountPerThread = Properties.Settings.Default.LobbyCountPerThread;
-            LobbyThreadCount    = Properties.Settings.Default.LobbyThreadCount;
+
+            RoomMaxCountPerThread = Properties.Settings.Default.RoomMaxCountPerThread;
+            RoomThreadCount    = Properties.Settings.Default.RoomThreadCount;
             RoomMaxUserCount = Properties.Settings.Default.RoomMaxUserCount;
             RoomStartNumber = Properties.Settings.Default.RoomStartNumber;
 

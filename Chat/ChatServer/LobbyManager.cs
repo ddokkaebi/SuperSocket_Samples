@@ -8,24 +8,27 @@ using CommonServerLib;
 
 namespace ChatServer
 {
+    //TODO 삭제 예정
+
+        /*
     class LobbyManager
     {
         List<Lobby> LobbyList = new List<Lobby>();
 
         public void CreateLobby()
         {
-            var lobbyCount = ChatServerEnvironment.LobbyThreadCount * ChatServerEnvironment.LobbyCountPerThread;
-            var lobbyStartNumber = ChatServerEnvironment.LobbyStartNumber;
-            var maxRoomCount = ChatServerEnvironment.MaxRoomCountPerLobby;
+            //var lobbyCount = ChatServerEnvironment.RoomThreadCount * ChatServerEnvironment.LobbyCountPerThread;
+            //var lobbyStartNumber = ChatServerEnvironment.LobbyStartNumber;
+            //var maxRoomCount = ChatServerEnvironment.MaxRoomCountPerLobby;
 
-            for (var i = 0; i < lobbyCount; ++i)
-            {
-                var startNumber = lobbyStartNumber + i;
+            //for (var i = 0; i < lobbyCount; ++i)
+            //{
+            //    var startNumber = lobbyStartNumber + i;
 
-                var lobby = new Lobby();
-                lobby.Init(i, startNumber, maxRoomCount);
-                LobbyList.Add(lobby);
-            }
+            //    var lobby = new Lobby();
+            //    lobby.Init(i, startNumber, maxRoomCount);
+            //    LobbyList.Add(lobby);
+            //}
         }
 
         public List<Lobby> GetLobbyList(int beginIndex, int endIndex)
@@ -35,5 +38,5 @@ namespace ChatServer
             return LobbyList.FindAll(x => (x.Index >= beginIndex) && (x.Index < endIndex));
         }
     }
-        
+        */
 }

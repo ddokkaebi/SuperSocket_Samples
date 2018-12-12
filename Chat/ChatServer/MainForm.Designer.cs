@@ -37,13 +37,13 @@
             this.textBoxCurrentUserCount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBoxLobbyMaxRoomCount = new System.Windows.Forms.TextBox();
+            this.textBoxRoomMaxCountPerThread = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxLobbyCountPerThread = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxLobbyStartNumber = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxLobbyThreadCount = new System.Windows.Forms.TextBox();
+            this.textBoxRoomThreadCount = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxRoomStartNumber = new System.Windows.Forms.TextBox();
@@ -133,13 +133,13 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.textBoxLobbyMaxRoomCount);
+            this.groupBox2.Controls.Add(this.textBoxRoomMaxCountPerThread);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.textBoxLobbyCountPerThread);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.textBoxLobbyStartNumber);
             this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textBoxLobbyThreadCount);
+            this.groupBox2.Controls.Add(this.textBoxRoomThreadCount);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(196, 12);
             this.groupBox2.Name = "groupBox2";
@@ -150,11 +150,11 @@
             // 
             // textBoxLobbyMaxRoomCount
             // 
-            this.textBoxLobbyMaxRoomCount.Location = new System.Drawing.Point(147, 89);
-            this.textBoxLobbyMaxRoomCount.Name = "textBoxLobbyMaxRoomCount";
-            this.textBoxLobbyMaxRoomCount.ReadOnly = true;
-            this.textBoxLobbyMaxRoomCount.Size = new System.Drawing.Size(52, 21);
-            this.textBoxLobbyMaxRoomCount.TabIndex = 7;
+            this.textBoxRoomMaxCountPerThread.Location = new System.Drawing.Point(147, 89);
+            this.textBoxRoomMaxCountPerThread.Name = "textBoxLobbyMaxRoomCount";
+            this.textBoxRoomMaxCountPerThread.ReadOnly = true;
+            this.textBoxRoomMaxCountPerThread.Size = new System.Drawing.Size(52, 21);
+            this.textBoxRoomMaxCountPerThread.TabIndex = 7;
             // 
             // label6
             // 
@@ -201,11 +201,11 @@
             // 
             // textBoxLobbyThreadCount
             // 
-            this.textBoxLobbyThreadCount.Location = new System.Drawing.Point(147, 37);
-            this.textBoxLobbyThreadCount.Name = "textBoxLobbyThreadCount";
-            this.textBoxLobbyThreadCount.ReadOnly = true;
-            this.textBoxLobbyThreadCount.Size = new System.Drawing.Size(53, 21);
-            this.textBoxLobbyThreadCount.TabIndex = 1;
+            this.textBoxRoomThreadCount.Location = new System.Drawing.Point(147, 37);
+            this.textBoxRoomThreadCount.Name = "textBoxLobbyThreadCount";
+            this.textBoxRoomThreadCount.ReadOnly = true;
+            this.textBoxRoomThreadCount.Size = new System.Drawing.Size(53, 21);
+            this.textBoxRoomThreadCount.TabIndex = 1;
             // 
             // label4
             // 
@@ -298,11 +298,11 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBoxLobbyStartNumber;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxLobbyThreadCount;
+        private System.Windows.Forms.TextBox textBoxRoomThreadCount;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxServerID;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBoxLobbyMaxRoomCount;
+        private System.Windows.Forms.TextBox textBoxRoomMaxCountPerThread;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxLobbyCountPerThread;
         private System.Windows.Forms.Label label5;

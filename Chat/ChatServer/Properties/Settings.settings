@@ -8,19 +8,13 @@
   &lt;string&gt;AppManageServer:127.0.0.1:18762&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="LobbyCountPerThread" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">2</Value>
-    </Setting>
-    <Setting Name="MaxRoomCountPerLobby" Type="System.Int32" Scope="User">
+    <Setting Name="RoomMaxCountPerThread" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">100</Value>
     </Setting>
     <Setting Name="ChatServerUniqueID" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
-    <Setting Name="LobbyStartNumber" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="LobbyThreadCount" Type="System.Int32" Scope="User">
+    <Setting Name="RoomThreadCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">4</Value>
     </Setting>
     <Setting Name="RedisDBInfo" Type="System.String" Scope="User">

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace ChatServer
 {
+    //TODO 삭제 예정
+
     class LobbyUser
     {
         int IndexID;

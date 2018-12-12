@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChatServer
 {
-    class Room
+    public class Room
     {
         public int Index { get; private set; }
         public int Number { get; private set; }

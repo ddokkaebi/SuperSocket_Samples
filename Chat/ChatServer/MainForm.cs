@@ -105,10 +105,10 @@ namespace ChatServer
                             textBoxAddress.Text = values[1];
                             break;
                         case CommonServerLib.InnerMsgType.CREATE_COMPONENT:
-                            textBoxLobbyStartNumber.Text = ChatServerEnvironment.LobbyStartNumber.ToString();
-                            textBoxLobbyThreadCount.Text = ChatServerEnvironment.LobbyThreadCount.ToString();
-                            textBoxLobbyCountPerThread.Text = ChatServerEnvironment.LobbyCountPerThread.ToString();
-                            textBoxLobbyMaxRoomCount.Text = ChatServerEnvironment.MaxRoomCountPerLobby.ToString();
+                            //textBoxLobbyStartNumber.Text = ChatServerEnvironment.LobbyStartNumber.ToString();
+                            textBoxRoomThreadCount.Text = ChatServerEnvironment.RoomThreadCount.ToString();
+                            //textBoxLobbyCountPerThread.Text = ChatServerEnvironment.LobbyCountPerThread.ToString();
+                            textBoxRoomMaxCountPerThread.Text = ChatServerEnvironment.RoomMaxCountPerThread.ToString();
                             textBoxRoomStartNumber.Text = ChatServerEnvironment.RoomStartNumber.ToString();
                             textBoxRoomMaxUserCount.Text = ChatServerEnvironment.RoomMaxUserCount.ToString();
                             break;

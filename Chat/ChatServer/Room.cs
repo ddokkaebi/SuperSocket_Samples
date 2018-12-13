@@ -13,11 +13,79 @@ namespace ChatServer
 
         int MaxUserCount = 0;
 
+        List<RoomUser> UserList = new List<RoomUser>();
+
+        public static Func<string, byte[], bool> NetSendFunc;
+
+
         public void Init(int index, int number, int maxUserCount)
         {
             Index = index;
             Number = number;
             MaxUserCount = maxUserCount;
+        }
+
+        public bool AddUser(string userID, int netSessionIndex, string netSessionID)
+        {
+            if(GetUser(userID) != null)
+            {
+                return false;
+            }
+
+            var roomUser = new RoomUser();
+            roomUser.Set(userID, netSessionIndex, netSessionID);
+            UserList.Add(roomUser);
+
+            return true;
+        }
+
+        public void RemoveUser(int netSessionIndex)
+        {
+            var index = UserList.FindIndex(x => x.NetSessionIndex == netSessionIndex);
+            UserList.RemoveAt(index);
+        }
+
+        public bool RemoveUser(RoomUser user)
+        {
+            return UserList.Remove(user);
+        }
+
+        public RoomUser GetUser(string userID)
+        {
+            return UserList.Find(x => x.UserID == userID);
+        }
+
+        public RoomUser GetUser(int netSessionIndex)
+        {
+            return UserList.Find(x => x.NetSessionIndex == netSessionIndex);
+        }
+
+        public void Broadcast(int excludeNetSessionIndex, byte[] sendPacket)
+        {
+            foreach(var user in UserList)
+            {
+                if(user.NetSessionIndex == excludeNetSessionIndex)
+                {
+                    continue;
+                }
+
+                NetSendFunc(user.NetSessionID, sendPacket);
+            }
+        }
+    }
+
+
+    public class RoomUser
+    {
+        public string UserID { get; private set; }
+        public int NetSessionIndex { get; private set; }
+        public string NetSessionID { get; private set; }
+
+        public void Set(string userID, int netSessionIndex, string netSessionID)
+        {
+            UserID = userID;
+            NetSessionIndex = netSessionIndex;
+            NetSessionID = netSessionID;
         }
     }
 }

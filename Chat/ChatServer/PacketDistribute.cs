@@ -28,6 +28,7 @@ namespace ChatServer
             //var lobbyStartIndex = ChatServerEnvironment.LobbyStartNumber;
             //var maxLobbyUserCount = ChatServerEnvironment.MaxRoomCountPerLobby;
 
+            Room.NetSendFunc = mainServer.SendData;
 
             SessionManager.CreateSession(mainServer.MaxConnectionNumber);
 
@@ -80,26 +81,38 @@ namespace ChatServer
 
             if(IsClientRequestCommonPacket(packetId))
             {
-                CommonPacketProcessor.InsertMsg(true, requestPacket);
+                DistributeCommon(true, requestPacket);
                 return;
             }
 
 
-            var lobbyIndex = SessionManager.GetLobbyIndex(sessionIndex);
-            var processor = PacketProcessorList.Find(x => x.관리중인_Room(lobbyIndex));
-            if (processor != null)
-            {
-                processor.InsertMsg(true, requestPacket);
-            }
-            else
+            var roomNumber = SessionManager.GetRoomNumber(sessionIndex);
+            if(DistributeRoomProcessor(true, false, roomNumber, requestPacket) == false)
             {
                 //TODO 로그 남기고, 어떤 처리를 해야 할듯      
-            }
+            }            
         }
 
-        public void DistributeSystem(ServerPacketData requestPacket)
+        public void DistributeCommon(bool isClientPacket, ServerPacketData requestPacket)
         {
-            CommonPacketProcessor.InsertMsg(true, requestPacket);
+            CommonPacketProcessor.InsertMsg(isClientPacket, requestPacket);
+        }
+
+        public bool DistributeRoomProcessor(bool isClientPacket, bool isPreRoomEnter, int roomNumber, ServerPacketData requestPacket)
+        {
+            var processor = PacketProcessorList.Find(x => x.관리중인_Room(roomNumber));
+            if (processor != null)
+            {
+                if (isPreRoomEnter == false)
+                {
+                    //TODO 클라이언트 상태가 룸에 들어간 상태이어야 한다
+                }
+
+                processor.InsertMsg(isClientPacket, requestPacket);
+                return true;
+            }
+
+            return false;
         }
 
 
@@ -115,16 +128,7 @@ namespace ChatServer
             var requestPacket = new ServerPacketData();
             requestPacket.Assign(resultData);
 
-            var lobbyIndex = SessionManager.GetLobbyIndex(sessionIndex);
-            var processor = PacketProcessorList.Find(x => x.관리중인_Room(lobbyIndex));
-            if (processor != null)
-            {
-                processor.InsertMsg(false, requestPacket);
-            }
-            else
-            {
-                CommonPacketProcessor.InsertMsg(false, requestPacket);
-            }
+            DistributeCommon(false, requestPacket);            
         }
 
         bool IsClientRequestCommonPacket(PACKETID packetId )

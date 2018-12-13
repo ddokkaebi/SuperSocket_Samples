@@ -27,8 +27,9 @@ namespace ChatServer
         Dictionary<int, Action<ServerPacketData>> PacketHandlerMap = new Dictionary<int, Action<ServerPacketData>>();
         PKHCommon CommonPacketHandler = new PKHCommon();
         PKHRoom RoomPacketHandler = new PKHRoom();
+                
 
-
+        //TODO MainServer를 인자로 주지말고, func을 인자로 넘겨주는 것이 좋다
         public void CreateAndStart(bool IsCommon, List<Room> roomList, MainServer mainServer, ConnectSessionManager sessionMgr)
         {
             공용_프로세서 = IsCommon;
@@ -63,9 +64,7 @@ namespace ChatServer
 
         public void InsertMsg(bool isClientRequest, ServerPacketData data)
         {
-            if (isClientRequest &&
-                data.PacketID.InRange((int)PACKETID.CS_BEGIN, (int)PACKETID.CS_END) == false 
-                )
+            if (isClientRequest && (data.PacketID.InRange((int)PACKETID.CS_BEGIN, (int)PACKETID.CS_END) == false))
             {
                 return;
             }

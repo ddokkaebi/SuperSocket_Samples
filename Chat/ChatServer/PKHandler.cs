@@ -13,7 +13,7 @@ namespace ChatServer
     {
         protected MainServer ServerNetwork;
         protected ConnectSessionManager SessionManager;
-
+        
 
         public void Init(MainServer serverNetwork, ConnectSessionManager sessionManager)
         {
@@ -38,6 +38,16 @@ namespace ChatServer
             };
 
             return dbQueue;
+        }
+
+        protected void SendInternalCommonPacket(ServerPacketData packetData)
+        {
+            ServerNetwork.GetPacketDistributor().DistributeCommon(false, packetData);
+        }
+
+        protected bool SendInternalRoomProcessor(bool isPreRoomEnter,  int roomNumber, ServerPacketData packetData)
+        {
+            return ServerNetwork.GetPacketDistributor().DistributeRoomProcessor(false, isPreRoomEnter, roomNumber, packetData);
         }
     }
 }

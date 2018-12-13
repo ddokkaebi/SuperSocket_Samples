@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using CSBaseLib;
+using MessagePack;
 
 namespace CommonServerLib
 {
@@ -33,6 +34,19 @@ namespace CommonServerLib
             }
         }
 
+        public void Assign(string sessionID, int sessionIndex, Int16 packetID, byte[] packetBodyData)
+        {
+            SessionIndex = sessionIndex;
+            SessionID = sessionID;
+
+            PacketID = packetID;
+            
+            if (packetBodyData.Length > 0)
+            {
+                BodyData = packetBodyData;
+            }
+        }
+
         public void Assign(DBResultQueue DBResult)
         {
             SessionIndex = DBResult.SessionIndex;
@@ -58,19 +72,44 @@ namespace CommonServerLib
             packet.SessionIndex = sessionIndex;
             packet.SessionID = sessionID;
             return packet;
-        }
-
-        //public static ServerPacketData MakeNTFWrongUserPacket(WRONG_USER_TYPE type, string sessionID)
-        //{
-        //    var packet = new ServerPacketData();
-        //    packet.PacketID = (Int32)PACKETID.SYSTEM_WRONG_USER;
-        //    packet.SessionID = sessionID;
-        //    packet.Value1 = 0;
-        //    packet.Value2 = 0;
-        //    packet.JsonFormatData = ((short)type).ToString();
-        //    return packet;
-        //}
+        }               
+        
     }
 
-    
+
+
+    [MessagePackObject]
+    public class PKTInternalReqRoomEnter
+    {
+        [Key(0)]
+        public int RoomNumber;
+
+        [Key(1)]
+        public string UserID;        
+    }
+
+    [MessagePackObject]
+    public class PKTInternalResRoomEnter
+    {
+        [Key(0)]
+        public ERROR_CODE Result;
+
+        [Key(1)]
+        public int RoomNumber;
+
+        [Key(2)]
+        public string UserID;
+    }
+
+
+    [MessagePackObject]
+    public class PKTInternalNtfRoomLeave
+    {
+        [Key(0)]
+        public int RoomNumber;
+
+        [Key(1)]
+        public string UserID;
+    }
+
 }

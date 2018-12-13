@@ -23,7 +23,7 @@ namespace ChatServer
     {
         IBootstrap ActiveServerBootstrap;
         static RemoteConnectCheck RemoteCheck = null;
-        static PacketDistributor Distributor = null;
+        PacketDistributor Distributor = null;
 
         public int MaxConnectionNumber { get; private set; } = 0;
 
@@ -163,7 +163,7 @@ namespace ChatServer
 
             var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID, session.SessionIndex);
             
-            Distributor.DistributeSystem(packet);
+            Distributor.DistributeCommon(false, packet);
         }
 
         void OnClosed(ClientSession session, CloseReason reason)
@@ -172,7 +172,7 @@ namespace ChatServer
 
             var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID, session.SessionIndex);
 
-            Distributor.DistributeSystem(packet);
+            Distributor.DistributeCommon(false, packet);
         }
 
         void OnPacketReceived(ClientSession session, EFBinaryRequestInfo reqInfo)

@@ -25,6 +25,12 @@ namespace CSBaseLib
         DB_LOGIN_INVALID_PASSWORD   = 1011,
         DB_LOGIN_EMPTY_USER         = 1012,
         DB_LOGIN_EXCEPTION          = 1013,
+
+        ROOM_ENTER_INVALID_STATE = 1021,
+        ROOM_ENTER_INVALID_USER = 1022,
+        ROOM_ENTER_ERROR_SYSTEM = 1023,
+        ROOM_ENTER_INVALID_ROOM_NUMBER = 1024,
+        ROOM_ENTER_FAIL_ADD_USER = 1025,
     }
 
     // 1 ~ 10000
@@ -49,8 +55,7 @@ namespace CSBaseLib
         NTF_ROOM_LEAVE_USER = 1023,
 
         REQ_ROOM_CHAT = 1026,
-        RES_ROOM_CHAT = 1027,
-        NTF_ROOM_CHAT = 1028,
+        NTF_ROOM_CHAT = 1027,
 
         CS_END          = 1100,
 
@@ -63,6 +68,12 @@ namespace CSBaseLib
 
         REQ_SS_SERVERINFO = 8021,
         RES_SS_SERVERINFO = 8023,
+
+        REQ_IN_ROOM_ENTER = 8031,
+        RES_IN_ROOM_ENTER = 8032,
+
+        NTF_IN_ROOM_LEAVE = 8036,
+
 
         // DB 8101 ~ 9000
         REQ_DB_LOGIN        = 8101,

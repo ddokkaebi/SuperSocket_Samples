@@ -16,7 +16,7 @@ namespace CSBaseLib
 
     public class PacketToBytes
     {
-        public static byte[] Make(PACKETID packetID, Int16 lobbyID, byte[] bodyData)
+        public static byte[] Make(PACKETID packetID, byte[] bodyData)
         {
             Int16 bodyDataSize = 0;
             if (bodyData != null)
@@ -73,7 +73,7 @@ namespace CSBaseLib
     public class PKTReqRoomEnter
     {
         [Key(0)]
-        public int RoomId;
+        public int RoomNumber;
     }
 
     [MessagePackObject]
@@ -124,18 +124,12 @@ namespace CSBaseLib
         public string ChatMessage;
     }
 
-    [MessagePackObject]
-    public class PKTResRoomChat
-    {
-        [Key(0)]
-        public short Result;
-    }
-
+    
     [MessagePackObject]
     public class PKTNtfRoomChat
     {
         [Key(0)]
-        public string UserNickName;
+        public string UserID;
 
         [Key(1)]
         public string ChatMessage;

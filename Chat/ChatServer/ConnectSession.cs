@@ -21,8 +21,7 @@ namespace ChatServer
         public bool IsEnable = true;
         int CurrentState = (int)SessionStatus.NONE;
         string UserID;
-        Int64 LobbyIndex = -1;
-        int RoomNumber = -1;
+        Int64 RoomNumber = -1;
 
         public void Clear()
         {
@@ -35,15 +34,27 @@ namespace ChatServer
             return (IsEnable && CurrentState == (int)SessionStatus.NONE);
         }
 
+        public bool IsStateLogin()
+        {
+            return (IsEnable && CurrentState == (int)SessionStatus.LOGIN);
+        }
+
         public void SetStateNone()
         {
             if (IsEnable == false)
             {
-                return;
+                CurrentState = (int)SessionStatus.NONE;
             }
-
-            CurrentState = (int)SessionStatus.NONE;
         }
+
+        public void SetStateLogin()
+        {
+            if (IsEnable)
+            {
+                CurrentState = (int)SessionStatus.LOGIN;
+                Interlocked.Exchange(ref RoomNumber, -1);
+            }
+         }
 
         public void SetStatePreLogin()
         {
@@ -66,9 +77,9 @@ namespace ChatServer
             UserID = userID;
         }
 
-        public int GetLobbyIndex()
+        public int GetRoomNumber()
         {
-            return (int)Interlocked.Read(ref LobbyIndex);
+            return (int)Interlocked.Read(ref RoomNumber);
         }
 
         public bool SetPreRoomEnter(int roomNumber)
@@ -88,7 +99,7 @@ namespace ChatServer
             return true;
         }
 
-        public bool SetRoomEntered(int lobbyIndex, int roomNumber)
+        public bool SetRoomEntered(Int64 roomNumber)
         {
             if (IsEnable == false)
             {
@@ -101,7 +112,7 @@ namespace ChatServer
                 return false;
             }
 
-            Interlocked.Exchange(ref LobbyIndex, lobbyIndex);
+            Interlocked.Exchange(ref RoomNumber, roomNumber);
             return true;
         }
     }

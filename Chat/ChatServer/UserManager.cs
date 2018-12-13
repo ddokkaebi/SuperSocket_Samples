@@ -8,36 +8,32 @@ using CSBaseLib;
 
 namespace ChatServer
 {
-    //TODO 제거하기!!!
-    /*
-    
     class UserManager
     {
-        Int64 UserSequenceNumber = 0;
+       UInt64 UserSequenceNumber = 0;
 
-        Dictionary<string, User> UserMap = new Dictionary<string, User>();
+        Dictionary<int, User> UserMap = new Dictionary<int, User>();
 
-        public ERROR_CODE AddUser(string userID, string sessionID)
+        public ERROR_CODE AddUser(string userID, string sessionID, int sessionIndex)
         {
-            if (UserMap.ContainsKey(userID))
+            if (UserMap.ContainsKey(sessionIndex))
             {
                 return ERROR_CODE.ADD_USER_DUPLICATION;
             }
 
 
-            UserSequenceNumber += 1;
+            ++UserSequenceNumber;
             
             var user = new User();
-            user.Set(UserSequenceNumber, sessionID);
-            
-            UserMap.Add(userID, user);
+            user.Set(UserSequenceNumber, sessionID, sessionIndex, userID);
+            UserMap.Add(sessionIndex, user);
 
             return ERROR_CODE.NONE;
         }
 
-        public ERROR_CODE RemoveUser(string userID)
+        public ERROR_CODE RemoveUser(int sessionIndex)
         {
-            if(UserMap.Remove(userID) == false)
+            if(UserMap.Remove(sessionIndex) == false)
             {
                 return ERROR_CODE.REMOVE_USER_SEARCH_FAILURE_USER_ID;
             }
@@ -45,56 +41,46 @@ namespace ChatServer
             return ERROR_CODE.NONE;
         }
 
-        public User GetUser(string userID)
+        public User GetUser(int sessionIndex)
         {
             User user = null;
-            UserMap.TryGetValue(userID, out user);
+            UserMap.TryGetValue(sessionIndex, out user);
             return user;
         }
-
-        public ERROR_CODE 유저_인증_완료(string userID)
-        {
-            var user = GetUser(userID);
-
-            if (user == null)
-            {
-                return ERROR_CODE.USER_AUTH_SEARCH_FAILURE_USER_ID;
-            }
-
-            if(user.SetAuthorized() == false)
-            {
-                return ERROR_CODE.USER_AUTH_ALREADY_SET_AUTH;
-            }
-
-            return ERROR_CODE.NONE;
-        }
+                
     }
 
     class User
     {
-        Int64 SequenceNumber = 0;
+        UInt64 SequenceNumber = 0;
         string SessionID;
-        bool Authorized;
-        
+        int SessionIndex = -1;
+        string UserID;
+        //int RoomNumber = -1;
 
-        public void Set(Int64 sequence, string sessionID)
+        
+        public void Set(UInt64 sequence, string sessionID, int sessionIndex, string userID)
         {
-            Authorized = false;
             SequenceNumber = sequence;
             SessionID = sessionID;
+            SessionIndex = sessionIndex;
+            UserID = userID;
+        }                   
+        
+        public bool IsConfirm(string netSessionID)
+        {
+            return SessionID == netSessionID;
         }
 
-        public bool SetAuthorized()
+        public string ID()
         {
-            if (Authorized)
-            {
-                return false;
-            }
+            return UserID;
+        }
 
-            Authorized = true;
-
-            return true;
-        }       
+        //public void EnteredRoom(int roomNumber)
+        //{
+        //    RoomNumber = roomNumber;
+        //}
     }
-    */
+    
 }

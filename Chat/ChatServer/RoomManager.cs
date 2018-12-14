@@ -24,7 +24,7 @@ namespace ChatServer
             int roomsIndex = -1;
             for (int i = 0; i < maxRoomCount; ++i)
             {
-                if( i == 0 || (i/ ChatServerEnvironment.RoomMaxCountPerThread) == 0)
+                if( i == 0 || (i % ChatServerEnvironment.RoomMaxCountPerThread) == 0)
                 {
                     ++roomsIndex;
                 }

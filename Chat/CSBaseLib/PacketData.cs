@@ -18,24 +18,48 @@ namespace CSBaseLib
     {
         public static byte[] Make(PACKETID packetID, byte[] bodyData)
         {
+            byte type = 0;
+            var pktID = (Int16)packetID;
             Int16 bodyDataSize = 0;
             if (bodyData != null)
             {
                 bodyDataSize = (Int16)bodyData.Length;
             }
-            var packetSize = bodyDataSize + PacketDef.PACKET_HEADER_SIZE;
+            var packetSize = (Int16)(bodyDataSize + PacketDef.PACKET_HEADER_SIZE);
 
-            List<byte> dataSource = new List<byte>();
-            dataSource.AddRange(BitConverter.GetBytes((Int16)packetSize));
-            dataSource.AddRange(BitConverter.GetBytes((Int16)packetID));
-            dataSource.AddRange(BitConverter.GetBytes((Int16)0));
+            //var offset = 0;
+            //var dataSource = new byte[packetSize];
+            //dataSource[offset] = unchecked((byte)(packetSize >> 8));
+            //++offset;
+            //dataSource[offset] = unchecked((byte)packetSize);
+            //++offset;
 
+            //dataSource[offset] = unchecked((byte)(pktID >> 8));
+            //++offset;
+            //dataSource[offset] = unchecked((byte)pktID);
+            //++offset;
+
+            //dataSource[offset] = 0;
+
+            //if (bodyDataSize > 0)
+            //{
+            //    Buffer.BlockCopy(bodyData, 0, dataSource, PacketDef.PACKET_HEADER_SIZE, bodyDataSize);
+            //}
+
+            //return dataSource;
+
+            var dataSource = new byte[packetSize];
+            Buffer.BlockCopy(BitConverter.GetBytes(packetSize), 0, dataSource, 0, 2);
+            Buffer.BlockCopy(BitConverter.GetBytes(pktID), 0, dataSource, 2, 2);
+            dataSource[4] = type;
+            
             if (bodyData != null)
             {
-                dataSource.AddRange(bodyData);
+                Buffer.BlockCopy(bodyData, 0, dataSource, 5, bodyDataSize);
             }
-            
-            return dataSource.ToArray();
+
+            return dataSource;
+
         }
 
         public static Tuple<int, byte[]> ClientReceiveData(int recvLength, byte[] recvData)
@@ -87,14 +111,14 @@ namespace CSBaseLib
     public class PKTNtfRoomUserList
     {
         [Key(0)]
-        public List<string> UserNickNames;
+        public List<string> UserIDList = new List<string>();
     }
 
     [MessagePackObject]
     public class PKTNtfRoomNewUser
     {
         [Key(0)]
-        public string UserNickName;
+        public string UserID;
     }
 
 
@@ -113,7 +137,7 @@ namespace CSBaseLib
     public class PKTNtfRoomLeaveUser
     {
         [Key(0)]
-        public string UserNickName;
+        public string UserID;
     }
 
 

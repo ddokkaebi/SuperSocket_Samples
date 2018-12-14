@@ -13,13 +13,14 @@ namespace ChatServer
     {
         protected MainServer ServerNetwork;
         protected ConnectSessionManager SessionManager;
-        
+
 
         public void Init(MainServer serverNetwork, ConnectSessionManager sessionManager)
         {
             ServerNetwork = serverNetwork;
             SessionManager = sessionManager;
         }
+                
 
         public bool RequestDBJob(PacketDistributor distributor, DBQueue dbQueue)
         {

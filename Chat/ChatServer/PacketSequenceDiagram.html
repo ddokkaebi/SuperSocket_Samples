@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/mermaid@7.0.0/dist/mermaid.min.css">
+</head>
+<body>
+    
+    <h1>클라이언트 연결</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client->>ChatServer: CONNECT
+            ChatServer->>ChatServer: NTF_IN_CONNECT_CLIENT            
+    </div>
+    <br/>
+
+    <h1>클라이언트 연결 종료</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client-->>ChatServer: DISCONNECT
+            ChatServer->>ChatServer: NTF_IN_DISCONNECT_CLIENT            
+    </div>
+    <br/>
+
+    <h1>로그인</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client->>ChatServer: REQ_LOGIN
+            ChatServer->>ChatServer: REQ_DB_LOGIN
+            ChatServer->>Redis: Read
+            ChatServer->>ChatServer: RES_DB_LOGIN
+            ChatServer->>Client: RES_LOGIN
+    </div>
+    <br/>   
+
+    <h1>방 입장</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client->>ChatServer: REQ_ROOM_ENTER
+            ChatServer->>ChatServer: REQ_IN_ROOM_ENTER
+            opt 성공이라면
+                ChatServer->>Client: NTF_ROOM_USER_LIST
+                ChatServer->>기존에 방에 있는 유저들: NTF_ROOM_NEW_USER
+            end
+            ChatServer->>ChatServer: RES_IN_ROOM_ENTER
+            ChatServer->>Client: RES_ROOM_ENTER
+    </div>
+    <br/>
+
+    <h1>방 나가기</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client->>ChatServer: REQ_ROOM_LEAVE
+            ChatServer->>아직 방에 있는 유저들: NTF_ROOM_LEAVE_USER
+            ChatServer->>Client: RES_ROOM_LEAVE
+    </div>
+    <br/>
+
+    <h1>방 채팅</h1>    
+    <div class="mermaid">
+        sequenceDiagram              
+            Client->>ChatServer: REQ_ROOM_CHAT
+            ChatServer->>방에 있는 모든 유저들: NTF_ROOM_CHAT        
+    </div>
+    <br/>
+
+    <script src="https://unpkg.com/mermaid@7.0.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>    
+</body>
+</html>

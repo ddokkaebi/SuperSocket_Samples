@@ -23,7 +23,7 @@ namespace ChatServer
     {
         IBootstrap ActiveServerBootstrap;
         static RemoteConnectCheck RemoteCheck = null;
-        PacketDistributor Distributor = null;
+        PacketDistributor Distributor = new PacketDistributor();
 
         public int MaxConnectionNumber { get; private set; } = 0;
 
@@ -94,17 +94,18 @@ namespace ChatServer
 
         public void StopServer()
         {
-            RemoteCheck.Stop();
-            this.Stop();
+            var appServer = ActiveServerBootstrap.AppServers.FirstOrDefault() as MainServer;
 
-            Distributor.Destory();
+            RemoteCheck.Stop();
+            appServer.Stop();
+
+            appServer.Distributor.Destory();
         }
 
         public ERROR_CODE CreateComponent()
         {
             var appServer = ActiveServerBootstrap.AppServers.FirstOrDefault() as MainServer;
-            Distributor = new PacketDistributor();
-            var error = Distributor.Create(appServer);
+            var error = appServer.Distributor.Create(appServer);
 
             if (error != ERROR_CODE.NONE)
             {

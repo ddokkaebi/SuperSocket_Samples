@@ -61,9 +61,10 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(429, 19);
+            this.button3.Location = new System.Drawing.Point(490, 24);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(71, 19);
+            this.button3.Size = new System.Drawing.Size(81, 24);
             this.button3.TabIndex = 25;
             this.button3.Text = "접속 끊기";
             this.button3.UseVisualStyleBackColor = true;
@@ -72,17 +73,18 @@
             // labelConnState
             // 
             this.labelConnState.AutoSize = true;
-            this.labelConnState.Location = new System.Drawing.Point(406, 17);
+            this.labelConnState.Location = new System.Drawing.Point(464, 21);
             this.labelConnState.Name = "labelConnState";
-            this.labelConnState.Size = new System.Drawing.Size(111, 12);
+            this.labelConnState.Size = new System.Drawing.Size(141, 15);
             this.labelConnState.TabIndex = 24;
             this.labelConnState.Text = "서버 접속 상태: ???";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(302, 19);
+            this.button2.Location = new System.Drawing.Point(345, 24);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(66, 19);
+            this.button2.Size = new System.Drawing.Size(75, 24);
             this.button2.TabIndex = 23;
             this.button2.Text = "접속하기";
             this.button2.UseVisualStyleBackColor = true;
@@ -96,19 +98,22 @@
             this.groupBox5.Controls.Add(this.checkBoxLocalHostIP);
             this.groupBox5.Controls.Add(this.textBoxIP);
             this.groupBox5.Controls.Add(this.label9);
-            this.groupBox5.Location = new System.Drawing.Point(12, 12);
+            this.groupBox5.Location = new System.Drawing.Point(14, 15);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(572, 52);
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox5.Size = new System.Drawing.Size(654, 65);
             this.groupBox5.TabIndex = 22;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Socket 더미 클라이언트 설정";
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(225, 20);
+            this.textBoxPort.Location = new System.Drawing.Point(257, 25);
+            this.textBoxPort.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxPort.MaxLength = 6;
             this.textBoxPort.Name = "textBoxPort";
-            this.textBoxPort.Size = new System.Drawing.Size(51, 21);
+            this.textBoxPort.Size = new System.Drawing.Size(58, 25);
             this.textBoxPort.TabIndex = 18;
             this.textBoxPort.Text = "32452";
             this.textBoxPort.WordWrap = false;
@@ -116,9 +121,9 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(163, 24);
+            this.label10.Location = new System.Drawing.Point(186, 30);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(61, 12);
+            this.label10.Size = new System.Drawing.Size(77, 15);
             this.label10.TabIndex = 17;
             this.label10.Text = "포트 번호:";
             // 
@@ -127,19 +132,21 @@
             this.checkBoxLocalHostIP.AutoSize = true;
             this.checkBoxLocalHostIP.Checked = true;
             this.checkBoxLocalHostIP.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLocalHostIP.Location = new System.Drawing.Point(285, 24);
+            this.checkBoxLocalHostIP.Location = new System.Drawing.Point(326, 30);
+            this.checkBoxLocalHostIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.checkBoxLocalHostIP.Name = "checkBoxLocalHostIP";
-            this.checkBoxLocalHostIP.Size = new System.Drawing.Size(103, 16);
+            this.checkBoxLocalHostIP.Size = new System.Drawing.Size(124, 19);
             this.checkBoxLocalHostIP.TabIndex = 15;
             this.checkBoxLocalHostIP.Text = "localhost 사용";
             this.checkBoxLocalHostIP.UseVisualStyleBackColor = true;
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(68, 19);
+            this.textBoxIP.Location = new System.Drawing.Point(78, 24);
+            this.textBoxIP.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxIP.MaxLength = 6;
             this.textBoxIP.Name = "textBoxIP";
-            this.textBoxIP.Size = new System.Drawing.Size(87, 21);
+            this.textBoxIP.Size = new System.Drawing.Size(99, 25);
             this.textBoxIP.TabIndex = 11;
             this.textBoxIP.Text = "172.20.60.220";
             this.textBoxIP.WordWrap = false;
@@ -147,9 +154,9 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 23);
+            this.label9.Location = new System.Drawing.Point(7, 29);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(61, 12);
+            this.label9.Size = new System.Drawing.Size(77, 15);
             this.label9.TabIndex = 10;
             this.label9.Text = "서버 주소:";
             // 
@@ -162,18 +169,21 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.button2);
             this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Location = new System.Drawing.Point(12, 70);
+            this.groupBox1.Location = new System.Drawing.Point(14, 88);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(572, 46);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(654, 58);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "로그인";
             // 
             // buttonLogIn
             // 
-            this.buttonLogIn.Location = new System.Drawing.Point(370, 19);
+            this.buttonLogIn.Location = new System.Drawing.Point(423, 24);
+            this.buttonLogIn.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.buttonLogIn.Name = "buttonLogIn";
-            this.buttonLogIn.Size = new System.Drawing.Size(53, 19);
+            this.buttonLogIn.Size = new System.Drawing.Size(61, 24);
             this.buttonLogIn.TabIndex = 30;
             this.buttonLogIn.Text = "로그인";
             this.buttonLogIn.UseVisualStyleBackColor = true;
@@ -181,10 +191,11 @@
             // 
             // textBoxAuthToken
             // 
-            this.textBoxAuthToken.Location = new System.Drawing.Point(210, 19);
+            this.textBoxAuthToken.Location = new System.Drawing.Point(240, 24);
+            this.textBoxAuthToken.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxAuthToken.MaxLength = 6;
             this.textBoxAuthToken.Name = "textBoxAuthToken";
-            this.textBoxAuthToken.Size = new System.Drawing.Size(86, 21);
+            this.textBoxAuthToken.Size = new System.Drawing.Size(98, 25);
             this.textBoxAuthToken.TabIndex = 29;
             this.textBoxAuthToken.Text = "32452";
             this.textBoxAuthToken.WordWrap = false;
@@ -192,18 +203,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(149, 23);
+            this.label1.Location = new System.Drawing.Point(170, 29);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 12);
+            this.label1.Size = new System.Drawing.Size(72, 15);
             this.label1.TabIndex = 28;
             this.label1.Text = "보안토큰:";
             // 
             // textBoxID
             // 
-            this.textBoxID.Location = new System.Drawing.Point(54, 18);
+            this.textBoxID.Location = new System.Drawing.Point(62, 22);
+            this.textBoxID.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxID.MaxLength = 6;
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(87, 21);
+            this.textBoxID.Size = new System.Drawing.Size(99, 25);
             this.textBoxID.TabIndex = 27;
             this.textBoxID.Text = "test1";
             this.textBoxID.WordWrap = false;
@@ -211,9 +223,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 22);
+            this.label2.Location = new System.Drawing.Point(7, 28);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(45, 12);
+            this.label2.Size = new System.Drawing.Size(57, 15);
             this.label2.TabIndex = 26;
             this.label2.Text = "아이디:";
             // 
@@ -222,9 +234,10 @@
             this.listViewLobbyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listViewLobbyList.Location = new System.Drawing.Point(6, 20);
+            this.listViewLobbyList.Location = new System.Drawing.Point(7, 25);
+            this.listViewLobbyList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listViewLobbyList.Name = "listViewLobbyList";
-            this.listViewLobbyList.Size = new System.Drawing.Size(135, 350);
+            this.listViewLobbyList.Size = new System.Drawing.Size(154, 436);
             this.listViewLobbyList.TabIndex = 27;
             this.listViewLobbyList.UseCompatibleStateImageBehavior = false;
             this.listViewLobbyList.View = System.Windows.Forms.View.Details;
@@ -248,25 +261,29 @@
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.listViewLobbyList);
-            this.groupBox2.Location = new System.Drawing.Point(12, 122);
+            this.groupBox2.Location = new System.Drawing.Point(14, 152);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(572, 438);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox2.Size = new System.Drawing.Size(654, 548);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "방";
             // 
             // textBoxRoomNum
             // 
-            this.textBoxRoomNum.Location = new System.Drawing.Point(6, 377);
+            this.textBoxRoomNum.Location = new System.Drawing.Point(7, 471);
+            this.textBoxRoomNum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxRoomNum.Name = "textBoxRoomNum";
-            this.textBoxRoomNum.Size = new System.Drawing.Size(61, 21);
+            this.textBoxRoomNum.Size = new System.Drawing.Size(69, 25);
             this.textBoxRoomNum.TabIndex = 33;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(501, 405);
+            this.button5.Location = new System.Drawing.Point(573, 506);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(52, 23);
+            this.button5.Size = new System.Drawing.Size(59, 29);
             this.button5.TabIndex = 32;
             this.button5.Text = "보내기";
             this.button5.UseVisualStyleBackColor = true;
@@ -274,25 +291,28 @@
             // 
             // textBoxSendChat
             // 
-            this.textBoxSendChat.Location = new System.Drawing.Point(156, 405);
+            this.textBoxSendChat.Location = new System.Drawing.Point(178, 506);
+            this.textBoxSendChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxSendChat.Name = "textBoxSendChat";
-            this.textBoxSendChat.Size = new System.Drawing.Size(339, 21);
+            this.textBoxSendChat.Size = new System.Drawing.Size(387, 25);
             this.textBoxSendChat.TabIndex = 31;
             // 
             // listBoxChat
             // 
             this.listBoxChat.FormattingEnabled = true;
-            this.listBoxChat.ItemHeight = 12;
-            this.listBoxChat.Location = new System.Drawing.Point(156, 20);
+            this.listBoxChat.ItemHeight = 15;
+            this.listBoxChat.Location = new System.Drawing.Point(178, 25);
+            this.listBoxChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBoxChat.Name = "listBoxChat";
-            this.listBoxChat.Size = new System.Drawing.Size(397, 376);
+            this.listBoxChat.Size = new System.Drawing.Size(453, 469);
             this.listBoxChat.TabIndex = 30;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(68, 376);
+            this.button4.Location = new System.Drawing.Point(78, 470);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(73, 23);
+            this.button4.Size = new System.Drawing.Size(83, 29);
             this.button4.TabIndex = 29;
             this.button4.Text = "방 입장";
             this.button4.UseVisualStyleBackColor = true;
@@ -300,9 +320,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 403);
+            this.button1.Location = new System.Drawing.Point(7, 504);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 23);
+            this.button1.Size = new System.Drawing.Size(154, 29);
             this.button1.TabIndex = 28;
             this.button1.Text = "방 나가기";
             this.button1.UseVisualStyleBackColor = true;
@@ -311,24 +332,27 @@
             // listBoxLog
             // 
             this.listBoxLog.FormattingEnabled = true;
-            this.listBoxLog.ItemHeight = 12;
-            this.listBoxLog.Location = new System.Drawing.Point(12, 566);
+            this.listBoxLog.ItemHeight = 15;
+            this.listBoxLog.Location = new System.Drawing.Point(14, 708);
+            this.listBoxLog.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBoxLog.Name = "listBoxLog";
-            this.listBoxLog.Size = new System.Drawing.Size(574, 184);
+            this.listBoxLog.Size = new System.Drawing.Size(655, 229);
             this.listBoxLog.TabIndex = 31;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 755);
+            this.ClientSize = new System.Drawing.Size(683, 944);
             this.Controls.Add(this.listBoxLog);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox5);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MainForm";
             this.Text = "채팅 클라이언트";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox1.ResumeLayout(false);

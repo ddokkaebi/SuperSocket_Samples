@@ -16,6 +16,18 @@ namespace ChatServer
     {
         UserManager UserMgr = new UserManager();
 
+        public void RegistPacketHandler(Dictionary<int, Action<ServerPacketData>> packetHandlerMap)
+        {
+            packetHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, NotifyInConnectClient);
+            packetHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, NotifyInDisConnectClient);
+
+            packetHandlerMap.Add((int)PACKETID.REQ_LOGIN, RequestLogin);
+            packetHandlerMap.Add((int)PACKETID.REQ_ROOM_ENTER, RequestRoomEnter);            
+
+            packetHandlerMap.Add((int)PACKETID.RES_IN_ROOM_ENTER, ResponseRoomEnterInternal);
+                        
+            packetHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, ResponseLoginFromDB);
+        }
 
         public void NotifyInConnectClient(ServerPacketData requestData)
         {

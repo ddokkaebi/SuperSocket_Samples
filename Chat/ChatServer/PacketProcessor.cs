@@ -75,22 +75,23 @@ namespace ChatServer
         
         void RegistPacketHandler(MainServer serverNetwork, ConnectSessionManager sessionManager)
         {
-            CommonPacketHandler.Init(serverNetwork, sessionManager);
-
-            PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
-            PacketHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, CommonPacketHandler.NotifyInDisConnectClient);
-
-            
-            PacketHandlerMap.Add((int)PACKETID.REQ_LOGIN, CommonPacketHandler.RequestLogin);
-            PacketHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, CommonPacketHandler.ResponseLoginFromDB);
-
-
-
-            RoomPacketHandler.Init(RoomList);
+            if (공용_프로세서)
+            {
+                CommonPacketHandler.Init(serverNetwork, sessionManager);
+                CommonPacketHandler.RegistPacketHandler(PacketHandlerMap);
+                //PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
+                //PacketHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, CommonPacketHandler.NotifyInDisConnectClient);
+                //PacketHandlerMap.Add((int)PACKETID.REQ_LOGIN, CommonPacketHandler.RequestLogin);
+                //PacketHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, CommonPacketHandler.ResponseLoginFromDB);
+            }
+            else
+            {
+                RoomPacketHandler.Init(RoomList);
+                RoomPacketHandler.RegistPacketHandler(PacketHandlerMap);
+            }
 
             // 개발
             PacketHandlerMap.Add((int)PACKETID.REQ_TEST_ECHO, CommonPacketHandler.RequestTestEcho);
-            //
         }
 
         void Process()

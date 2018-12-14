@@ -28,7 +28,7 @@ namespace ChatClient
         Queue<PacketData> RecvPacketQueue = new Queue<PacketData>();
         Queue<byte[]> SendPacketQueue = new Queue<byte[]>();
 
-        System.Windows.Forms.Timer dispatcherUITimer;
+        Timer dispatcherUITimer = new Timer();
 
 
         public MainForm()
@@ -278,7 +278,7 @@ namespace ChatClient
             var reqLogin = new CSBaseLib.PKTReqLogin() { UserID = userID, AuthToken = authToken };
 
             var Body = MessagePackSerializer.Serialize(reqLogin);
-            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGIN, 0, Body);
+            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGIN, Body);
             PostSendPacket(sendData);
             //await Task.Run(() => socket.s_write(sendData));
 
@@ -355,6 +355,24 @@ namespace ChatClient
                     }
                     break;
             }
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Network.Close();
+
+            IsNetworkThreadRunning = false;
+            IsBackGroundProcessRunning = false;
+
+            if(NetworkReadThread.IsAlive)
+            {
+                NetworkReadThread.Join();
+            }
+            
+            if(NetworkSendThread.IsAlive)
+            {
+                NetworkSendThread.Join();
+            }            
         }
     }
 

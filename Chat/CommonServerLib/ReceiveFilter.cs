@@ -35,7 +35,7 @@ namespace CommonServerLib
         {
             if (!BitConverter.IsLittleEndian)
             {
-                Array.Reverse(header, offset, 2);
+                Array.Reverse(header, offset, CSBaseLib.PacketDef.PACKET_HEADER_SIZE);
             }
 
             var packetSize = BitConverter.ToInt16(header, offset);
@@ -46,7 +46,7 @@ namespace CommonServerLib
         protected override EFBinaryRequestInfo ResolveRequestInfo(ArraySegment<byte> header, byte[] bodyBuffer, int offset, int length)
         {
             if (!BitConverter.IsLittleEndian)
-                Array.Reverse(header.Array, 0, 12);
+                Array.Reverse(header.Array, 0, CSBaseLib.PacketDef.PACKET_HEADER_SIZE);
 
             return new EFBinaryRequestInfo(BitConverter.ToInt16(header.Array, 0),
                                            BitConverter.ToInt16(header.Array,  2),

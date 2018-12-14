@@ -23,6 +23,17 @@ namespace ChatServer
             StartRoomNumber = roomList[0].Number;
         }
 
+        public void RegistPacketHandler(Dictionary<int, Action<ServerPacketData>> packetHandlerMap)
+        {
+            packetHandlerMap.Add((int)PACKETID.REQ_ROOM_LEAVE, RequestLeave);
+            packetHandlerMap.Add((int)PACKETID.NTF_IN_ROOM_LEAVE, NotifyLeaveInternal);
+            packetHandlerMap.Add((int)PACKETID.REQ_ROOM_CHAT, RequestChat);
+
+
+            packetHandlerMap.Add((int)PACKETID.REQ_IN_ROOM_ENTER, RequestEnterInternal);
+        }
+
+
         Room GetRoom(int roomNumber)
         {
             var index = roomNumber - StartRoomNumber;
@@ -89,6 +100,9 @@ namespace ChatServer
                 }
 
 
+                room.NotifyPacketUserList(sessionID);
+                room.NofifyPacketNewUser(sessionIndex, reqData.UserID);
+
                 SendInternalRoomEnterPacketToCommon(ERROR_CODE.NONE, reqData.RoomNumber, reqData.UserID, sessionID, sessionIndex);
                     
                 DevLog.Write("RequestEnterInternal - Success", LOG_LEVEL.DEBUG);
@@ -153,7 +167,10 @@ namespace ChatServer
                 return false;
             }
 
+            var userID = user.UserID;
             room.RemoveUser(user);
+
+            room.NotifyPacketLeaveUser(userID);
             return true;
         }
 
@@ -170,7 +187,7 @@ namespace ChatServer
             ServerNetwork.SendData(sessionID, sendData);
         }
 
-        public void NotifyLeave(ServerPacketData packetData)
+        public void NotifyLeaveInternal(ServerPacketData packetData)
         {
             var sessionIndex = packetData.SessionIndex;
             LeaveRoomUser(sessionIndex);

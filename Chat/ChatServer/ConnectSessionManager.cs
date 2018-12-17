@@ -24,6 +24,18 @@ namespace ChatServer
             DisAbleSession.IsEnable = false;
         }
 
+        public void SetClear(int index)
+        {
+            var session = GetSession(index);
+            session.Clear();
+        }
+
+        public void SetDisable(int index)
+        {
+            var session = GetSession(index);
+            session.SetDisable();
+        }
+
         public int GetRoomNumber(int index)
         {
             var session = GetSession(index);
@@ -34,6 +46,12 @@ namespace ChatServer
         {
             var session = GetSession(index);
             return session.IsStateNone();
+        }
+
+        public bool IsStateRoom(int index)
+        {
+            var session = GetSession(index);
+            return session.IsStateRoom();
         }
 
         public void SetPreLogin(int index)

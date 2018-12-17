@@ -10,12 +10,23 @@ namespace ChatServer
 {
     class UserManager
     {
+        int MaxUserCount;
        UInt64 UserSequenceNumber = 0;
 
         Dictionary<int, User> UserMap = new Dictionary<int, User>();
 
+        public void Init(int maxUserCount)
+        {
+            MaxUserCount = maxUserCount;
+        }
+
         public ERROR_CODE AddUser(string userID, string sessionID, int sessionIndex)
         {
+            if(IsFullUserCount())
+            {
+                return ERROR_CODE.LOGIN_FULL_USER_COUNT;
+            }
+
             if (UserMap.ContainsKey(sessionIndex))
             {
                 return ERROR_CODE.ADD_USER_DUPLICATION;
@@ -47,6 +58,11 @@ namespace ChatServer
             UserMap.TryGetValue(sessionIndex, out user);
             return user;
         }
+
+        bool IsFullUserCount()
+        {
+            return MaxUserCount <= UserMap.Count();
+         }
                 
     }
 

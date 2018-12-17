@@ -75,7 +75,7 @@ namespace ChatServer
                         
             if(IsClientRequestPacket(packetId) == false)
             {
-                //TODO 로그 남기고, 어떤 처리를 해야 할듯
+                DevLog.Write("[Distribute] - 클라리언트의 요청 패킷이 아니다.", LOG_LEVEL.DEBUG);
                 return; 
             }
 
@@ -89,7 +89,7 @@ namespace ChatServer
             var roomNumber = SessionManager.GetRoomNumber(sessionIndex);
             if(DistributeRoomProcessor(true, false, roomNumber, requestPacket) == false)
             {
-                //TODO 로그 남기고, 어떤 처리를 해야 할듯      
+                return;
             }            
         }
 
@@ -100,18 +100,21 @@ namespace ChatServer
 
         public bool DistributeRoomProcessor(bool isClientPacket, bool isPreRoomEnter, int roomNumber, ServerPacketData requestPacket)
         {
+            var sessionIndex = requestPacket.SessionIndex;
             var processor = PacketProcessorList.Find(x => x.관리중인_Room(roomNumber));
             if (processor != null)
             {
-                if (isPreRoomEnter == false)
+                if (isPreRoomEnter == false && SessionManager.IsStateRoom(sessionIndex) == false)
                 {
-                    //TODO 클라이언트 상태가 룸에 들어간 상태이어야 한다
+                    DevLog.Write("[DistributeRoomProcessor] - 방에 입장하지 않은 유저 - 1", LOG_LEVEL.DEBUG);
+                    return false;
                 }
 
                 processor.InsertMsg(isClientPacket, requestPacket);
                 return true;
             }
 
+            DevLog.Write("[DistributeRoomProcessor] - 방에 입장하지 않은 유저 - 2", LOG_LEVEL.DEBUG);
             return false;
         }
 

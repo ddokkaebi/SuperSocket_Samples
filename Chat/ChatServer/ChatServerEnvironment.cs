@@ -19,6 +19,8 @@ namespace ChatServer
 
         public static string RedisAddress;
 
+        public static int MaxUserCount = 0;
+
 
         public static void Setting()
         {
@@ -32,6 +34,14 @@ namespace ChatServer
             DBWorkerThreadCount = Properties.Settings.Default.DBWorkerThreadCount;
 
             RedisAddress = Properties.Settings.Default.RedisDBInfo;
+
+
+            SetMaxUserCount();
+        }
+
+        static void SetMaxUserCount()
+        {
+            MaxUserCount = (RoomMaxCountPerThread * RoomMaxCountPerThread) * RoomMaxUserCount;
         }
     }
 }

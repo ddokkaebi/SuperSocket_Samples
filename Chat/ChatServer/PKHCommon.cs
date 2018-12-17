@@ -16,8 +16,13 @@ namespace ChatServer
     {
         UserManager UserMgr = new UserManager();
 
-        public void RegistPacketHandler(Dictionary<int, Action<ServerPacketData>> packetHandlerMap)
+        public void SetConfig(int maxUserCount)
         {
+            UserMgr.Init(maxUserCount);
+        }
+
+        public void RegistPacketHandler(Dictionary<int, Action<ServerPacketData>> packetHandlerMap)
+        {            
             packetHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, NotifyInConnectClient);
             packetHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, NotifyInDisConnectClient);
 
@@ -35,8 +40,7 @@ namespace ChatServer
 
             InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);
 
-            //TODO 최대 유저 수가 넘는 경우 여기서 접속 종료를 통보한다
-            // 로그인 요청도 못하게 관련 flag을 셋해야 한다.
+            
         }
 
         public void NotifyInDisConnectClient(ServerPacketData requestData)
@@ -50,7 +54,12 @@ namespace ChatServer
                 SendInternalRoomLeavePacket(roomNum, user.ID());
             }
 
-            UserMgr.RemoveUser(sessionIndex);
+            if (user != null)
+            {
+                UserMgr.RemoveUser(sessionIndex);
+            }
+
+            SessionManager.SetClear(sessionIndex);
             InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);
         }
 
@@ -116,9 +125,19 @@ namespace ChatServer
 
                 errorCode = UserMgr.AddUser(resData.UserID, packetData.SessionID, packetData.SessionIndex);
                 if(errorCode != ERROR_CODE.NONE)
-                {
+                {                    
                     ResponseLoginToClient(errorCode, packetData.SessionID);
-                    SessionManager.SetStateNone(sessionIndex);
+                  
+                    if(errorCode == ERROR_CODE.LOGIN_FULL_USER_COUNT)
+                    {
+                        NotifyMustCloseToClient(ERROR_CODE.LOGIN_FULL_USER_COUNT, packetData.SessionID);
+                        SessionManager.SetDisable(sessionIndex);
+                    }
+                    else
+                    {
+                        SessionManager.SetStateNone(sessionIndex);
+                    }
+
                     return;
                 }
 
@@ -144,6 +163,19 @@ namespace ChatServer
 
             var bodyData = MessagePackSerializer.Serialize(resLogin);
             var sendData = PacketToBytes.Make(PACKETID.RES_LOGIN, bodyData);
+
+            ServerNetwork.SendData(sessionID, sendData);
+        }
+
+        public void NotifyMustCloseToClient(ERROR_CODE errorCode, string sessionID)
+        {
+            var resLogin = new PKNtfMustClose()
+            {
+                Result = (short)errorCode
+            };
+
+            var bodyData = MessagePackSerializer.Serialize(resLogin);
+            var sendData = PacketToBytes.Make(PACKETID.NTF_MUST_CLOSE, bodyData);
 
             ServerNetwork.SendData(sessionID, sendData);
         }

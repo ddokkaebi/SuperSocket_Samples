@@ -20,24 +20,35 @@ namespace ChatServer
     class ConnectSession
     {
         public bool IsEnable = true;
-        int CurrentState = (int)SessionStatus.NONE;
+        Int64 CurrentState = (Int64)SessionStatus.NONE;
         string UserID;
         Int64 RoomNumber = PacketDef.INVALID_ROOM_NUMBER;
 
         public void Clear()
         {
-            CurrentState = (int)SessionStatus.NONE;
+            IsEnable = true;
+            CurrentState = (Int64)SessionStatus.NONE;
             RoomNumber = PacketDef.INVALID_ROOM_NUMBER;
         }
 
         public bool IsStateNone()
         {
-            return (IsEnable && CurrentState == (int)SessionStatus.NONE);
+            return (IsEnable && CurrentState == (Int64)SessionStatus.NONE);
         }
 
         public bool IsStateLogin()
         {
-            return (IsEnable && CurrentState == (int)SessionStatus.LOGIN);
+            return (IsEnable && CurrentState == (Int64)SessionStatus.LOGIN);
+        }
+
+        public bool IsStateRoom()
+        {
+            return (IsEnable && GetState() == SessionStatus.ROOM);
+        }
+
+        public void SetDisable()
+        {
+            IsEnable = false;
         }
 
         public void SetStateNone()
@@ -52,7 +63,7 @@ namespace ChatServer
         {
             if (IsEnable)
             {
-                CurrentState = (int)SessionStatus.LOGIN;
+                CurrentState = (Int64)SessionStatus.LOGIN;
                 Interlocked.Exchange(ref RoomNumber, PacketDef.INVALID_ROOM_NUMBER);
             }
          }
@@ -61,7 +72,7 @@ namespace ChatServer
         {
             if (IsEnable)
             {
-                CurrentState = (int)SessionStatus.LOGIN_ING;
+                CurrentState = (Int64)SessionStatus.LOGIN_ING;
             }           
         }
 
@@ -72,13 +83,18 @@ namespace ChatServer
                 return;
             }
 
-            CurrentState = (int)SessionStatus.LOGIN;
+            CurrentState = (Int64)SessionStatus.LOGIN;
             UserID = userID;
         }
 
         public int GetRoomNumber()
         {
             return (int)Interlocked.Read(ref RoomNumber);
+        }
+
+        SessionStatus GetState()
+        {
+            return (SessionStatus)Interlocked.Read(ref CurrentState);
         }
 
         public bool SetPreRoomEnter(int roomNumber)
@@ -88,8 +104,8 @@ namespace ChatServer
                 return false;
             }
 
-            var oldValue = Interlocked.CompareExchange(ref CurrentState, (int)SessionStatus.ROOM_ENTERING, (int)SessionStatus.LOGIN);
-            if (oldValue != (int)SessionStatus.LOGIN)
+            var oldValue = Interlocked.CompareExchange(ref CurrentState, (Int64)SessionStatus.ROOM_ENTERING, (Int64)SessionStatus.LOGIN);
+            if (oldValue != (Int64)SessionStatus.LOGIN)
             {
                 return false;
             }
@@ -105,8 +121,8 @@ namespace ChatServer
                 return false;
             }
 
-            var oldValue = Interlocked.CompareExchange(ref CurrentState, (int)SessionStatus.ROOM, (int)SessionStatus.ROOM_ENTERING);
-            if (oldValue != (int)SessionStatus.ROOM_ENTERING)
+            var oldValue = Interlocked.CompareExchange(ref CurrentState, (Int64)SessionStatus.ROOM, (Int64)SessionStatus.ROOM_ENTERING);
+            if (oldValue != (Int64)SessionStatus.ROOM_ENTERING)
             {
                 return false;
             }

@@ -58,7 +58,7 @@ namespace ChatServer
 
         public bool 관리중인_Room(int roomNumber)
         {
-            //TODO RoomNumberRange.Item2도 포함되는지 확인하기
+            //InRange의 min, max도 포함된다.
             return roomNumber.InRange(RoomNumberRange.Item1, RoomNumberRange.Item2);
         }
 
@@ -78,6 +78,7 @@ namespace ChatServer
             if (공용_프로세서)
             {
                 CommonPacketHandler.Init(serverNetwork, sessionManager);
+                CommonPacketHandler.SetConfig(ChatServerEnvironment.MaxUserCount);
                 CommonPacketHandler.RegistPacketHandler(PacketHandlerMap);
                 //PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
                 //PacketHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, CommonPacketHandler.NotifyInDisConnectClient);

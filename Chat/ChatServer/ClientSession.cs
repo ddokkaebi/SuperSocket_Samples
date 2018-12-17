@@ -54,23 +54,6 @@ namespace ChatServer
         {
             PushIndex(index);
         }
-
-        //protected override void OnSessionStarted()
-        //{
-        //    base.OnSessionStarted();
-
-        //    //TODO 세션 최대수를 supersocket 설정에서 정했는데 이것 이상으로 접속했을 때도 호출되는지 확인
-        //    SessionIndex = PopIndex();
-        //}
-
-        //public override void Close()
-        //{
-        //    base.Close();
-
-        //    if (SessionIndex >= 0)
-        //    {
-        //        PushIndex(SessionIndex);
-        //    }
-        //}
+      
     }
 }

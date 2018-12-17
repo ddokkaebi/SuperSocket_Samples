@@ -21,6 +21,7 @@ namespace CSBaseLib
         USER_AUTH_SEARCH_FAILURE_USER_ID    = 1004,
         USER_AUTH_ALREADY_SET_AUTH          = 1005,
         LOGIN_ALREADY_WORKING = 1006,
+        LOGIN_FULL_USER_COUNT = 1007,
 
         DB_LOGIN_INVALID_PASSWORD   = 1011,
         DB_LOGIN_EMPTY_USER         = 1012,
@@ -44,6 +45,7 @@ namespace CSBaseLib
 
         REQ_LOGIN       = 1002,
         RES_LOGIN       = 1003,
+        NTF_MUST_CLOSE       = 1005,
 
         REQ_ROOM_ENTER = 1015,
         RES_ROOM_ENTER = 1016,

@@ -43,9 +43,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.listViewLobbyList = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxRoomNum = new System.Windows.Forms.TextBox();
             this.button5 = new System.Windows.Forms.Button();
@@ -54,6 +51,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.listBoxLog = new System.Windows.Forms.ListBox();
+            this.listBoxRoomUserList = new System.Windows.Forms.ListBox();
             this.groupBox5.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -229,38 +227,15 @@
             this.label2.TabIndex = 26;
             this.label2.Text = "아이디:";
             // 
-            // listViewLobbyList
-            // 
-            this.listViewLobbyList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.listViewLobbyList.Location = new System.Drawing.Point(7, 25);
-            this.listViewLobbyList.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listViewLobbyList.Name = "listViewLobbyList";
-            this.listViewLobbyList.Size = new System.Drawing.Size(154, 436);
-            this.listViewLobbyList.TabIndex = 27;
-            this.listViewLobbyList.UseCompatibleStateImageBehavior = false;
-            this.listViewLobbyList.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "ID";
-            this.columnHeader1.Width = 29;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "현재 인원";
-            this.columnHeader2.Width = 75;
-            // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listBoxRoomUserList);
             this.groupBox2.Controls.Add(this.textBoxRoomNum);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.textBoxSendChat);
             this.groupBox2.Controls.Add(this.listBoxChat);
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.listViewLobbyList);
             this.groupBox2.Location = new System.Drawing.Point(14, 152);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
@@ -272,7 +247,7 @@
             // 
             // textBoxRoomNum
             // 
-            this.textBoxRoomNum.Location = new System.Drawing.Point(7, 471);
+            this.textBoxRoomNum.Location = new System.Drawing.Point(15, 285);
             this.textBoxRoomNum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBoxRoomNum.Name = "textBoxRoomNum";
             this.textBoxRoomNum.Size = new System.Drawing.Size(69, 25);
@@ -309,7 +284,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(78, 470);
+            this.button4.Location = new System.Drawing.Point(86, 284);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(83, 29);
@@ -320,7 +295,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(7, 504);
+            this.button1.Location = new System.Drawing.Point(15, 318);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(154, 29);
@@ -338,6 +313,15 @@
             this.listBoxLog.Name = "listBoxLog";
             this.listBoxLog.Size = new System.Drawing.Size(655, 229);
             this.listBoxLog.TabIndex = 31;
+            // 
+            // listBoxRoomUserList
+            // 
+            this.listBoxRoomUserList.FormattingEnabled = true;
+            this.listBoxRoomUserList.ItemHeight = 15;
+            this.listBoxRoomUserList.Location = new System.Drawing.Point(15, 30);
+            this.listBoxRoomUserList.Name = "listBoxRoomUserList";
+            this.listBoxRoomUserList.Size = new System.Drawing.Size(158, 244);
+            this.listBoxRoomUserList.TabIndex = 34;
             // 
             // MainForm
             // 
@@ -379,9 +363,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxID;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ListView listViewLobbyList;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.TextBox textBoxSendChat;
@@ -391,6 +372,7 @@
         private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.ListBox listBoxLog;
         private System.Windows.Forms.TextBox textBoxRoomNum;
+        private System.Windows.Forms.ListBox listBoxRoomUserList;
     }
 }
 

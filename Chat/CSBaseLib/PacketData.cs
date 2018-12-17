@@ -74,6 +74,15 @@ namespace CSBaseLib
 
 
     [MessagePackObject]
+    public class PKNtfMustClose
+    {
+        [Key(0)]
+        public short Result;
+    }
+
+
+
+    [MessagePackObject]
     public class PKTReqRoomEnter
     {
         [Key(0)]

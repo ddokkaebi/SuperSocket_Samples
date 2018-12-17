@@ -185,17 +185,19 @@ namespace ChatClient
         public void SetDisconnectd()
         {
             ClientState = CLIENT_STATE.NONE;
-            /*if (btnConnect.Enabled == false)
-            {
-                btnConnect.Enabled = true;
-                btnDisconnect.Enabled = false;
-            }*/
-
+            
             SendPacketQueue.Clear();
 
+            ClearUIRoomOut();
             //labelStatus.Text = "서버 접속이 끊어짐";
         }
 
+        void ClearUIRoomOut()
+        {
+            listBoxRoomUserList.Items.Clear();
+            textBoxRoomNum.Text = "-1";
+            listBoxChat.Items.Clear();
+        }
 
 
 
@@ -333,34 +335,65 @@ namespace ChatClient
 
                 case PACKETID.RES_ROOM_ENTER:
                     {
+                        var resData = MessagePackSerializer.Deserialize<PKTResRoomEnter>(packet.BodyData);
 
+                        if (resData.Result == (short)ERROR_CODE.NONE)
+                        {
+                            ClientState = CLIENT_STATE.ROOM;
+                            PrintLog("방 입장 성공");
+                        }
+                        else
+                        {
+                            PrintLog(string.Format("방입장 실패: {0} {1}", resData.Result, ((ERROR_CODE)resData.Result).ToString()));
+                        }
                     }
                     break;
                 case PACKETID.NTF_ROOM_USER_LIST:
                     {
+                        var ntfData = MessagePackSerializer.Deserialize<PKTNtfRoomUserList>(packet.BodyData);
 
+                        foreach(var user in ntfData.UserIDList)
+                        {
+                            listBoxRoomUserList.Items.Add(user);
+                        }
                     }
                     break;
                 case PACKETID.NTF_ROOM_NEW_USER:
                     {
-
+                        var ntfData = MessagePackSerializer.Deserialize<PKTNtfRoomNewUser>(packet.BodyData);
+                        listBoxRoomUserList.Items.Add(ntfData.UserID);
                     }
                     break;
 
                 case PACKETID.RES_ROOM_LEAVE:
                     {
+                        var resData = MessagePackSerializer.Deserialize<PKTResRoomLeave>(packet.BodyData);
 
+                        if (resData.Result == (short)ERROR_CODE.NONE)
+                        {
+                            listBoxRoomUserList.Items.Remove(textBoxID.Text);
+                            ClientState = CLIENT_STATE.LOGIN;
+                            PrintLog("방 나가기 성공");
+                        }
+                        else
+                        {
+                            PrintLog(string.Format("방 나가기 실패: {0} {1}", resData.Result, ((ERROR_CODE)resData.Result).ToString()));
+                        }
                     }
                     break;
                 case PACKETID.NTF_ROOM_LEAVE_USER:
                     {
-
+                        var ntfData = MessagePackSerializer.Deserialize<PKTNtfRoomLeaveUser>(packet.BodyData);
+                        listBoxRoomUserList.Items.Remove(ntfData.UserID);
                     }
                     break;
 
                 case PACKETID.NTF_ROOM_CHAT:
                     {
+                        textBoxSendChat.Text = "";
 
+                        var ntfData = MessagePackSerializer.Deserialize<PKTNtfRoomChat>(packet.BodyData);
+                        listBoxChat.Items.Add($"[{ntfData.UserID}]: {ntfData.ChatMessage}");
                     }
                     break;
             }
@@ -390,7 +423,7 @@ namespace ChatClient
         NONE        = 0,
         CONNECTED   = 1,
         LOGIN       = 2,
-        LOBBY       = 3
+        ROOM       = 3
     }
 
     struct PacketData

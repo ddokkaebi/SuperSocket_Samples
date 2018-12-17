@@ -158,9 +158,11 @@ namespace ChatServer
                 
         void OnConnected(ClientSession session)
         {
+            //TODO 세션 최대수를 supersocket 설정에서 정했는데 이것 이상으로 접속했을 때도 호출되는지 확인
+
             session.AllocSessionIndex();
             DevLog.Write(string.Format("세션 번호 {0} 접속", session.SessionID), LOG_LEVEL.INFO);
-
+                        
             var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID, session.SessionIndex);            
             Distributor.DistributeCommon(false, packet);
         }

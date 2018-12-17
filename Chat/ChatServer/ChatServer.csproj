@@ -120,6 +120,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Config\log4net.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

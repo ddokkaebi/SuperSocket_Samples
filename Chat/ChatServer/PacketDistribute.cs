@@ -30,7 +30,7 @@ namespace ChatServer
 
             Room.NetSendFunc = mainServer.SendData;
 
-            SessionManager.CreateSession(mainServer.MaxConnectionNumber);
+            SessionManager.CreateSession(ClientSession.MaxSessionCount);
 
             //LobbyMgr.CreateLobby();
             RoomMgr.CreateRooms();

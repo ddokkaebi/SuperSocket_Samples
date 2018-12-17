@@ -1,4 +1,5 @@
-﻿using MessagePack;
+﻿using CSBaseLib;
+using MessagePack;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -245,19 +246,34 @@ namespace ChatClient
         // 방 나가기
         private void button1_Click(object sender, EventArgs e)
         {
+            PrintLog("서버에 방 나가기 요청");
 
+            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_ROOM_LEAVE, null);
+            PostSendPacket(sendData);
         }
 
         // 방 입장
         private void button4_Click(object sender, EventArgs e)
         {
-            var roomNum = textBoxRoomNum.Text;
+            var roomNum = textBoxRoomNum.Text.ToInt32();
+
+            PrintLog("서버에 방 입장 요청");
+
+            var request = new CSBaseLib.PKTReqRoomEnter() { RoomNumber = roomNum };
+
+            var Body = MessagePackSerializer.Serialize(request);
+            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_ROOM_ENTER, Body);
+            PostSendPacket(sendData);
         }
 
         // 방 채팅 보내기
         private void button5_Click(object sender, EventArgs e)
         {
+            var request = new CSBaseLib.PKTReqRoomChat() { ChatMessage = textBoxSendChat.Text };
 
+            var Body = MessagePackSerializer.Serialize(request);
+            var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_ROOM_CHAT, Body);
+            PostSendPacket(sendData);
         }
 
         void PrintLog(string logMsg)
@@ -279,18 +295,7 @@ namespace ChatClient
 
             var Body = MessagePackSerializer.Serialize(reqLogin);
             var sendData = CSBaseLib.PacketToBytes.Make(CSBaseLib.PACKETID.REQ_LOGIN, Body);
-            PostSendPacket(sendData);
-            //await Task.Run(() => socket.s_write(sendData));
-
-            
-            //Tuple<int, byte[]> recvData = null;
-            //await Task.Run(() => recvData = socket.s_read());
-
-            //if (recvData != null)
-            //{
-            //    var packetData = CSBaseLib.PacketToBytes.ClientReceiveData(recvData.Item1, recvData.Item2);
-            //    PacketProcess(packetData.Item1, packetData.Item2);
-            //}
+            PostSendPacket(sendData);            
         }
 
         public void PostSendPacket(byte[] sendData)
@@ -305,44 +310,15 @@ namespace ChatClient
         }
 
 
-        //async void RequestLobbyList()
-        //{
-        //listViewLobbyList.Items.Clear();
-
-        //byte[] Body = Encoding.Unicode.GetBytes(echoMsg);
-
-        //List<byte> dataSource = new List<byte>();
-        //dataSource.AddRange(BitConverter.GetBytes((Int32)PACKETID.REQ_ECHO));
-        //dataSource.AddRange(BitConverter.GetBytes((Int16)1));
-        //dataSource.AddRange(BitConverter.GetBytes((Int16)2));
-        //dataSource.AddRange(BitConverter.GetBytes(Body.Length));
-        //dataSource.AddRange(Body);
-
-        //await Task.Run(() => socket.s_write(dataSource.ToArray()));
-
-        //labelSendEcho.Text = string.Format("{0}: {1}", DateTime.Now, echoMsg);
-
-
-        //Tuple<int, byte[]> recvData = null;
-        //await Task.Run(() => recvData = socket.s_read());
-
-        //if (recvData != null)
-        //{
-        //    var arySeg = new ArraySegment<byte>(recvData.Item2, 8, (recvData.Item1 - 8));
-        //    string msg = System.Text.Encoding.GetEncoding("utf-16").GetString(arySeg.ToArray());
-        //    textBoxRecvEcho.Text = msg;
-        //}
-        //}
-
         void PacketProcess(PacketData packet)
         {
-            switch(packet.PacketID)
+            switch((PACKETID)packet.PacketID)
             {
-                case (int)CSBaseLib.PACKETID.RES_LOGIN:
+                case PACKETID.RES_LOGIN:
                     {
-                        var resData = MessagePackSerializer.Deserialize<CSBaseLib.PKTResLogin>(packet.BodyData);
+                        var resData = MessagePackSerializer.Deserialize<PKTResLogin>(packet.BodyData);
 
-                        if (resData.Result == (short)CSBaseLib.ERROR_CODE.NONE)
+                        if (resData.Result == (short)ERROR_CODE.NONE)
                         {
                             ClientState = CLIENT_STATE.LOGIN;
                             PrintLog("로그인 성공");
@@ -350,8 +326,41 @@ namespace ChatClient
                         }
                         else
                         {
-                            PrintLog(string.Format("로그인 실패: {0} {1}", resData.Result, resData.Result.ToString()));
+                            PrintLog(string.Format("로그인 실패: {0} {1}", resData.Result, ((ERROR_CODE)resData.Result).ToString()));
                         }
+                    }
+                    break;
+
+                case PACKETID.RES_ROOM_ENTER:
+                    {
+
+                    }
+                    break;
+                case PACKETID.NTF_ROOM_USER_LIST:
+                    {
+
+                    }
+                    break;
+                case PACKETID.NTF_ROOM_NEW_USER:
+                    {
+
+                    }
+                    break;
+
+                case PACKETID.RES_ROOM_LEAVE:
+                    {
+
+                    }
+                    break;
+                case PACKETID.NTF_ROOM_LEAVE_USER:
+                    {
+
+                    }
+                    break;
+
+                case PACKETID.NTF_ROOM_CHAT:
+                    {
+
                     }
                     break;
             }

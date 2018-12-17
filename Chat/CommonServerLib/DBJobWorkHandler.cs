@@ -49,12 +49,8 @@ namespace CommonServerLib
                 {
                     return RequestLoginValue(ERROR_CODE.DB_LOGIN_EMPTY_USER, userID, sessionID, sessionIndex);
                 }
-
-
-                //토큰 값##로그인시간
-                var tokenString = value.ToString().Split("##");
-
-                if( reqData.AuthToken != tokenString[0])
+                                                
+                if( reqData.AuthToken != value)
                 {
                     return RequestLoginValue(ERROR_CODE.DB_LOGIN_INVALID_PASSWORD, userID, sessionID, sessionIndex);
                 }

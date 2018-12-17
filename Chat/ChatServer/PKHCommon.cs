@@ -41,8 +41,16 @@ namespace ChatServer
 
         public void NotifyInDisConnectClient(ServerPacketData requestData)
         {
-            requestData = null;
+            var sessionIndex = requestData.SessionIndex;
+            var roomNum = SessionManager.GetRoomNumber(sessionIndex);
+            var user = UserMgr.GetUser(sessionIndex);
 
+            if (roomNum != PacketDef.INVALID_ROOM_NUMBER && user != null)
+            {                
+                SendInternalRoomLeavePacket(roomNum, user.ID());
+            }
+
+            UserMgr.RemoveUser(sessionIndex);
             InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);
         }
 
@@ -67,7 +75,11 @@ namespace ChatServer
                 SessionManager.SetPreLogin(sessionIndex);
                 
                 // DB 작업 의뢰한다.
-                var dbReqLogin = new DBReqLogin() { AuthToken = reqData.AuthToken };
+                var dbReqLogin = new DBReqLogin()
+                {
+                    UserID = reqData.UserID,
+                    AuthToken = reqData.AuthToken
+                };
                 var jobDatas = MessagePackSerializer.Serialize(dbReqLogin);
                 
                 var dbQueue = MakeDBQueue(PACKETID.REQ_DB_LOGIN, sessionID, sessionIndex, jobDatas);

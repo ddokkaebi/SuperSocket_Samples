@@ -9,15 +9,12 @@ namespace ChatServer
 {
     // 전체 연결된 세션의 상태 관리
     public class ConnectSessionManager
-    {
-        int MaxSessionCount = 0;
+    {        
         List<ConnectSession> SessionList = new List<ConnectSession>();
         ConnectSession DisAbleSession = new ConnectSession();
 
         public void CreateSession(int maxCount)
         {
-            MaxSessionCount = maxCount;
-
             for (int i = 0; i < maxCount; ++i)
             {
                 SessionList.Add(new ConnectSession());
@@ -84,7 +81,7 @@ namespace ChatServer
 
         ConnectSession GetSession(int index)
         {
-            if(0 <= index && index < MaxSessionCount)
+            if(0 <= index && index < ClientSession.MaxSessionCount)
             {
                 return SessionList[index];
             }

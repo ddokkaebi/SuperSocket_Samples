@@ -88,9 +88,6 @@
     <Compile Include="ClientSession.cs" />
     <Compile Include="ConnectSession.cs" />
     <Compile Include="ConnectSessionManager.cs" />
-    <Compile Include="Lobby.cs" />
-    <Compile Include="LobbyManager.cs" />
-    <Compile Include="LobbyUser.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

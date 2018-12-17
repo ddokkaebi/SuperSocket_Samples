@@ -56,9 +56,7 @@ namespace ChatServer
         string SessionID;
         int SessionIndex = -1;
         string UserID;
-        //int RoomNumber = -1;
-
-        
+                
         public void Set(UInt64 sequence, string sessionID, int sessionIndex, string userID)
         {
             SequenceNumber = sequence;

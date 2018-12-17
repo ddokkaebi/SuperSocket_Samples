@@ -12,6 +12,8 @@ namespace CSBaseLib
         public const Int16 PACKET_HEADER_SIZE = 5;
         public const int MAX_USER_ID_BYTE_LENGTH = 16;
         public const int MAX_USER_PW_BYTE_LENGTH = 16;
+
+        public const int INVALID_ROOM_NUMBER = -1;
     }
 
     public class PacketToBytes
@@ -26,28 +28,7 @@ namespace CSBaseLib
                 bodyDataSize = (Int16)bodyData.Length;
             }
             var packetSize = (Int16)(bodyDataSize + PacketDef.PACKET_HEADER_SIZE);
-
-            //var offset = 0;
-            //var dataSource = new byte[packetSize];
-            //dataSource[offset] = unchecked((byte)(packetSize >> 8));
-            //++offset;
-            //dataSource[offset] = unchecked((byte)packetSize);
-            //++offset;
-
-            //dataSource[offset] = unchecked((byte)(pktID >> 8));
-            //++offset;
-            //dataSource[offset] = unchecked((byte)pktID);
-            //++offset;
-
-            //dataSource[offset] = 0;
-
-            //if (bodyDataSize > 0)
-            //{
-            //    Buffer.BlockCopy(bodyData, 0, dataSource, PacketDef.PACKET_HEADER_SIZE, bodyDataSize);
-            //}
-
-            //return dataSource;
-
+                        
             var dataSource = new byte[packetSize];
             Buffer.BlockCopy(BitConverter.GetBytes(packetSize), 0, dataSource, 0, 2);
             Buffer.BlockCopy(BitConverter.GetBytes(pktID), 0, dataSource, 2, 2);
@@ -59,7 +40,6 @@ namespace CSBaseLib
             }
 
             return dataSource;
-
         }
 
         public static Tuple<int, byte[]> ClientReceiveData(int recvLength, byte[] recvData)

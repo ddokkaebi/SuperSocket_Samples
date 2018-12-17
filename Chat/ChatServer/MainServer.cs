@@ -14,8 +14,7 @@ using CSBaseLib;
 using CommonServerLib;
 
 
-//TODO 1. 2만명 접속 가능한지 테스트 하기
-//TODO 2. 주기적으로 접속한 세션이 패킷을 주고 받았는지 조사(좀비 클라이언트 검사)
+//TODO 1. 주기적으로 접속한 세션이 패킷을 주고 받았는지 조사(좀비 클라이언트 검사)
 
 namespace ChatServer
 {
@@ -25,8 +24,7 @@ namespace ChatServer
         static RemoteConnectCheck RemoteCheck = null;
         PacketDistributor Distributor = new PacketDistributor();
 
-        public int MaxConnectionNumber { get; private set; } = 0;
-
+        
         public MainServer()
             : base(new DefaultReceiveFilterFactory<ReceiveFilter, EFBinaryRequestInfo>())
         {
@@ -66,13 +64,13 @@ namespace ChatServer
 
             
             ChatServerEnvironment.Setting();
-
+                        
             StartRemoteConnect();
 
             var appServer = ActiveServerBootstrap.AppServers.FirstOrDefault() as MainServer;
             InnerMessageHostProgram.ServerStart(ChatServerEnvironment.ChatServerUniqueID, appServer.Config.Port);
 
-            MaxConnectionNumber = appServer.Config.MaxConnectionNumber;
+            ClientSession.CreateIndexPool(appServer.Config.MaxConnectionNumber);
         }
 
         public void StartRemoteConnect()
@@ -160,10 +158,10 @@ namespace ChatServer
                 
         void OnConnected(ClientSession session)
         {
+            session.AllocSessionIndex();
             DevLog.Write(string.Format("세션 번호 {0} 접속", session.SessionID), LOG_LEVEL.INFO);
 
-            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID, session.SessionIndex);
-            
+            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(true, session.SessionID, session.SessionIndex);            
             Distributor.DistributeCommon(false, packet);
         }
 
@@ -171,9 +169,11 @@ namespace ChatServer
         {
             DevLog.Write(string.Format("세션 번호 {0} 접속해제: {1}", session.SessionID, reason.ToString()), LOG_LEVEL.INFO);
 
-            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID, session.SessionIndex);
 
+            var packet = ServerPacketData.MakeNTFInConnectOrDisConnectClientPacket(false, session.SessionID, session.SessionIndex);
             Distributor.DistributeCommon(false, packet);
+
+            session.FreeSessionIndex(session.SessionIndex);
         }
 
         void OnPacketReceived(ClientSession session, EFBinaryRequestInfo reqInfo)

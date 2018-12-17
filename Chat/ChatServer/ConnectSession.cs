@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSBaseLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +22,12 @@ namespace ChatServer
         public bool IsEnable = true;
         int CurrentState = (int)SessionStatus.NONE;
         string UserID;
-        Int64 RoomNumber = -1;
+        Int64 RoomNumber = PacketDef.INVALID_ROOM_NUMBER;
 
         public void Clear()
         {
             CurrentState = (int)SessionStatus.NONE;
-            RoomNumber = -1;
+            RoomNumber = PacketDef.INVALID_ROOM_NUMBER;
         }
 
         public bool IsStateNone()
@@ -41,7 +42,7 @@ namespace ChatServer
 
         public void SetStateNone()
         {
-            if (IsEnable == false)
+            if (IsEnable)
             {
                 CurrentState = (int)SessionStatus.NONE;
             }
@@ -52,18 +53,16 @@ namespace ChatServer
             if (IsEnable)
             {
                 CurrentState = (int)SessionStatus.LOGIN;
-                Interlocked.Exchange(ref RoomNumber, -1);
+                Interlocked.Exchange(ref RoomNumber, PacketDef.INVALID_ROOM_NUMBER);
             }
          }
 
         public void SetStatePreLogin()
         {
-            if (IsEnable == false)
+            if (IsEnable)
             {
-                return;
-            }
-
-            CurrentState = (int)SessionStatus.LOGIN_ING;
+                CurrentState = (int)SessionStatus.LOGIN_ING;
+            }           
         }
 
         public void SetStateLogin(string userID)

@@ -283,7 +283,7 @@
             this.button5.Location = new System.Drawing.Point(573, 506);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(59, 29);
+            this.button5.Size = new System.Drawing.Size(75, 29);
             this.button5.TabIndex = 32;
             this.button5.Text = "보내기";
             this.button5.UseVisualStyleBackColor = true;
@@ -304,7 +304,7 @@
             this.listBoxChat.Location = new System.Drawing.Point(178, 25);
             this.listBoxChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listBoxChat.Name = "listBoxChat";
-            this.listBoxChat.Size = new System.Drawing.Size(453, 469);
+            this.listBoxChat.Size = new System.Drawing.Size(470, 469);
             this.listBoxChat.TabIndex = 30;
             // 
             // button4

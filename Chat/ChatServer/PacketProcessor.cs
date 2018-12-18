@@ -18,6 +18,8 @@ namespace ChatServer
         bool IsThreadRunning = false;
         System.Threading.Thread ProcessThread = null;
         
+        //TODO 동기 혹은 비동기로 주고 받을 때 receive쪽에서 처리하지 않으면 블럭킹 걸리나?
+        //  그리고 기본으로 최대 버퍼 수는 몇개인지 확인하기
         BufferBlock<ServerPacketData> MsgBuffer = new BufferBlock<ServerPacketData>();
 
         //List<Lobby> LobbyList = null;

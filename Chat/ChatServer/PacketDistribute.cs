@@ -17,22 +17,17 @@ namespace ChatServer
 
         DBProcessor DBWorker = new DBProcessor();
 
-        //LobbyManager LobbyMgr = new LobbyManager();
         RoomManager RoomMgr = new RoomManager();
 
 
         public ERROR_CODE Create(MainServer mainServer)
         {
             var roomThreadCount = ChatServerEnvironment.RoomThreadCount;
-            //var lobbyCountPerThread = ChatServerEnvironment.LobbyCountPerThread;
-            //var lobbyStartIndex = ChatServerEnvironment.LobbyStartNumber;
-            //var maxLobbyUserCount = ChatServerEnvironment.MaxRoomCountPerLobby;
-
+            
             Room.NetSendFunc = mainServer.SendData;
 
             SessionManager.CreateSession(ClientSession.MaxSessionCount);
 
-            //LobbyMgr.CreateLobby();
             RoomMgr.CreateRooms();
 
             CommonPacketProcessor = new PacketProcessor();
@@ -40,10 +35,6 @@ namespace ChatServer
                         
             for (int i = 0; i < roomThreadCount; ++i)
             {
-                //var lobbyBeginIndex = lobbyStartIndex + (i*lobbyCountPerThread);
-                //var lobbyEndIndex = lobbyBeginIndex + lobbyCountPerThread;
-                //var lobbyList = LobbyMgr.GetLobbyList(lobbyBeginIndex, lobbyEndIndex);
-
                 var packetProcess = new PacketProcessor();
                 packetProcess.CreateAndStart(false, RoomMgr.GetRoomList(i), mainServer, SessionManager);
                 PacketProcessorList.Add(packetProcess);

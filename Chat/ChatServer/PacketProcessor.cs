@@ -17,12 +17,11 @@ namespace ChatServer
 
         bool IsThreadRunning = false;
         System.Threading.Thread ProcessThread = null;
-        
-        //TODO 동기 혹은 비동기로 주고 받을 때 receive쪽에서 처리하지 않으면 블럭킹 걸리나?
-        //  그리고 기본으로 최대 버퍼 수는 몇개인지 확인하기
+
+        //receive쪽에서 처리하지 않아도 Post에서 블럭킹 되지 않는다. 
+        //BufferBlock<T>(DataflowBlockOptions) 에서 DataflowBlockOptions의 BoundedCapacity로 버퍼 가능 수 지정. BoundedCapacity 보다 크게 쌓이면 블럭킹 된다
         BufferBlock<ServerPacketData> MsgBuffer = new BufferBlock<ServerPacketData>();
 
-        //List<Lobby> LobbyList = null;
         Tuple<int,int> RoomNumberRange = new Tuple<int, int>(-1, -1);
         List<Room> RoomList = new List<Room>();
 
@@ -72,6 +71,7 @@ namespace ChatServer
             }
 
             MsgBuffer.Post(data);
+            //DevLog.Write($"[InsertMsg] - PktID: {data.PacketID}", LOG_LEVEL.DEBUG);
         }
 
         
@@ -81,11 +81,7 @@ namespace ChatServer
             {
                 CommonPacketHandler.Init(serverNetwork, sessionManager);
                 CommonPacketHandler.SetConfig(ChatServerEnvironment.MaxUserCount);
-                CommonPacketHandler.RegistPacketHandler(PacketHandlerMap);
-                //PacketHandlerMap.Add((int)PACKETID.NTF_IN_CONNECT_CLIENT, CommonPacketHandler.NotifyInConnectClient);
-                //PacketHandlerMap.Add((int)PACKETID.NTF_IN_DISCONNECT_CLIENT, CommonPacketHandler.NotifyInDisConnectClient);
-                //PacketHandlerMap.Add((int)PACKETID.REQ_LOGIN, CommonPacketHandler.RequestLogin);
-                //PacketHandlerMap.Add((int)PACKETID.RES_DB_LOGIN, CommonPacketHandler.ResponseLoginFromDB);
+                CommonPacketHandler.RegistPacketHandler(PacketHandlerMap);                
             }
             else
             {
@@ -101,6 +97,7 @@ namespace ChatServer
         {
             while (IsThreadRunning)
             {
+                //System.Threading.Thread.Sleep(64); //테스트 용
                 try
                 {
                     var packet = MsgBuffer.Receive();
@@ -114,7 +111,7 @@ namespace ChatServer
                         System.Diagnostics.Debug.WriteLine("세션 번호 {0}, PacketID {1}, 받은 데이터 크기: {2}", packet.SessionID, packet.PacketID, packet.BodyData.Length);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     IsThreadRunning.IfTrue(() => DevLog.Write(ex.ToString(), LOG_LEVEL.ERROR));
                 }

@@ -158,7 +158,7 @@ namespace ChatServer
                 
         void OnConnected(ClientSession session)
         {
-            //TODO 세션 최대수를 supersocket 설정에서 정했는데 이것 이상으로 접속했을 때도 호출되는지 확인
+            //옵션의 최대 연결 수를 넘으면 SuperSocket이 바로 접속을 짤라버린다. 즉 이 OnConneted 함수가 호출되지 않는다
 
             session.AllocSessionIndex();
             DevLog.Write(string.Format("세션 번호 {0} 접속", session.SessionID), LOG_LEVEL.INFO);

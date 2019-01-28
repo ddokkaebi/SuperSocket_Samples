@@ -36,11 +36,7 @@ namespace ChatServer
 
         public void NotifyInConnectClient(ServerPacketData requestData)
         {
-            requestData = null;
-
-            InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);
-
-            
+            InnerMessageHostProgram.CurrentUserCount(ServerNetwork.SessionCount);            
         }
 
         public void NotifyInDisConnectClient(ServerPacketData requestData)
